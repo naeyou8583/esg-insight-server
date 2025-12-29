@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 | ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 50%, #0f2744 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <!-- Floating Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="w-full max-w-lg relative z-10 my-8">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <a href="/" class="inline-flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <span class="font-bold text-2xl text-white">ESG Insight</span>
+            </a>
+        </div>
+
+        <!-- Signup Card -->
+        <div class="bg-white rounded-3xl shadow-2xl p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">회원가입</h1>
+                <p class="text-gray-500">14일 무료 체험을 시작하세요</p>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="flex items-center justify-center gap-2 mb-8">
+                <div class="flex items-center gap-2">
+                    <div id="step1Dot" class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-semibold">1</div>
+                    <span class="text-sm text-gray-600 hidden sm:inline">기본 정보</span>
+                </div>
+                <div class="w-8 h-0.5 bg-gray-200"></div>
+                <div class="flex items-center gap-2">
+                    <div id="step2Dot" class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-semibold">2</div>
+                    <span class="text-sm text-gray-400 hidden sm:inline">회사 정보</span>
+                </div>
+                <div class="w-8 h-0.5 bg-gray-200"></div>
+                <div class="flex items-center gap-2">
+                    <div id="step3Dot" class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-semibold">3</div>
+                    <span class="text-sm text-gray-400 hidden sm:inline">완료</span>
+                </div>
+            </div>
+
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <!-- Step 1: Basic Info -->
+                <div id="step1" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">이름 <span class="text-red-500">*</span></label>
+                        <input type="text" id="name" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                               placeholder="홍길동">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">이메일 <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                               placeholder="email@company.com">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">비밀번호 <span class="text-red-500">*</span></label>
+                        <input type="password" id="password" required minlength="8"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                               placeholder="8자 이상 입력">
+                        <p class="text-xs text-gray-500 mt-1">영문, 숫자, 특수문자 포함 8자 이상</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">비밀번호 확인 <span class="text-red-500">*</span></label>
+                        <input type="password" id="passwordConfirm" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                               placeholder="비밀번호 재입력">
+                    </div>
+
+                    <button type="button" onclick="goToStep(2)"
+                            class="w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-cyan-600 transition">
+                        다음 단계
+                    </button>
+                </div>
+
+                <!-- Step 2: Company Info -->
+                <div id="step2" class="hidden space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">회사명 <span class="text-red-500">*</span></label>
+                        <input type="text" id="companyName" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                               placeholder="주식회사 OOO">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">직함</label>
+                        <input type="text" id="position"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                               placeholder="ESG 담당자">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">연락처 <span class="text-red-500">*</span></label>
+                        <input type="tel" id="phone" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                               placeholder="010-0000-0000">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">업종</label>
+                        <select id="industry"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
+                            <option value="">선택하세요</option>
+                            <option value="manufacturing">제조업</option>
+                            <option value="it">IT/소프트웨어</option>
+                            <option value="retail">유통/소매</option>
+                            <option value="finance">금융/보험</option>
+                            <option value="construction">건설</option>
+                            <option value="logistics">물류/운송</option>
+                            <option value="food">식품/음료</option>
+                            <option value="healthcare">헬스케어</option>
+                            <option value="energy">에너지</option>
+                            <option value="other">기타</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">직원 수</label>
+                        <select id="employeeCount"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
+                            <option value="">선택하세요</option>
+                            <option value="1-10">1-10명</option>
+                            <option value="11-50">11-50명</option>
+                            <option value="51-100">51-100명</option>
+                            <option value="101-300">101-300명</option>
+                            <option value="301-500">301-500명</option>
+                            <option value="500+">500명 이상</option>
+                        </select>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button type="button" onclick="goToStep(1)"
+                                class="flex-1 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition">
+                            이전
+                        </button>
+                        <button type="button" onclick="goToStep(3)"
+                                class="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-cyan-600 transition">
+                            다음
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Agreement & Submit -->
+                <div id="step3" class="hidden space-y-5">
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <h3 class="font-semibold text-gray-900 mb-3">가입 정보 확인</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">이름</span>
+                                <span id="confirmName" class="text-gray-900 font-medium"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">이메일</span>
+                                <span id="confirmEmail" class="text-gray-900 font-medium"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">회사명</span>
+                                <span id="confirmCompany" class="text-gray-900 font-medium"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agreements -->
+                    <div class="space-y-3">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="agreeAll" onchange="toggleAllAgree()" class="mt-1 w-5 h-5 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500">
+                            <span class="font-semibold text-gray-900">전체 동의</span>
+                        </label>
+                        
+                        <div class="pl-8 space-y-3 border-t pt-3">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" id="agreeTerms" required class="mt-1 w-4 h-4 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500 agree-item">
+                                <span class="text-sm text-gray-600">
+                                    <span class="text-red-500">[필수]</span> 
+                                    <a href="/terms" target="_blank" class="text-emerald-600 hover:underline">이용약관</a> 동의
+                                </span>
+                            </label>
+                            
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" id="agreePrivacy" required class="mt-1 w-4 h-4 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500 agree-item">
+                                <span class="text-sm text-gray-600">
+                                    <span class="text-red-500">[필수]</span>
+                                    <a href="/privacy" target="_blank" class="text-emerald-600 hover:underline">개인정보처리방침</a> 동의
+                                </span>
+                            </label>
+                            
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" id="agreeMarketing" class="mt-1 w-4 h-4 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500 agree-item">
+                                <span class="text-sm text-gray-600">
+                                    <span class="text-gray-400">[선택]</span>
+                                    마케팅 정보 수신 동의
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="errorMsg" class="hidden p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm"></div>
+
+                    <div class="flex gap-3">
+                        <button type="button" onclick="goToStep(2)"
+                                class="flex-1 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition">
+                            이전
+                        </button>
+                        <button type="submit" id="submitBtn"
+                                class="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-cyan-600 transition">
+                            가입 완료
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Social Signup -->
+            <div class="mt-8">
+                <div class="relative mb-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div class="relative flex justify-center">
+                        <span class="px-4 bg-white text-sm text-gray-500">간편 가입</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="socialSignup('google')" class="flex-1 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition flex items-center justify-center">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                    </button>
+                    <button onclick="socialSignup('kakao')" class="flex-1 py-3 bg-yellow-300 rounded-xl hover:bg-yellow-400 transition flex items-center justify-center">
+                        <svg class="w-5 h-5 text-yellow-900" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.87 5.32 4.67 6.71l-.95 3.54c-.05.19.01.39.16.51.09.08.21.12.33.12.08 0 .16-.02.24-.06l4.17-2.78c.46.05.92.08 1.38.08 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
+                        </svg>
+                    </button>
+                    <button onclick="socialSignup('naver')" class="flex-1 py-3 bg-green-500 rounded-xl hover:bg-green-600 transition flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727v12.845z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login Link -->
+            <p class="mt-6 text-center text-gray-600">
+                이미 계정이 있으신가요?
+                <a href="/login" class="text-emerald-600 font-semibold hover:text-emerald-700">로그인</a>
+            </p>
+        </div>
+
+        <!-- Back to Home -->
+        <p class="mt-6 text-center">
+            <a href="/" class="text-gray-400 hover:text-white transition">← 홈으로 돌아가기</a>
+        </p>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function goToStep(step) {
+            // Validation
+            if (step === 2 && currentStep === 1) {
+                const password = document.getElementById('password').value;
+                const confirm = document.getElementById('passwordConfirm').value;
+                if (password !== confirm) {
+                    alert('비밀번호가 일치하지 않습니다.');
+                    return;
+                }
+                if (password.length < 8) {
+                    alert('비밀번호는 8자 이상이어야 합니다.');
+                    return;
+                }
+            }
+
+            if (step === 3) {
+                document.getElementById('confirmName').textContent = document.getElementById('name').value;
+                document.getElementById('confirmEmail').textContent = document.getElementById('email').value;
+                document.getElementById('confirmCompany').textContent = document.getElementById('companyName').value;
+            }
+
+            // Hide all steps
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+
+            // Show current step
+            document.getElementById('step' + step).classList.remove('hidden');
+
+            // Update dots
+            for (let i = 1; i <= 3; i++) {
+                const dot = document.getElementById('step' + i + 'Dot');
+                if (i <= step) {
+                    dot.classList.remove('bg-gray-200', 'text-gray-500');
+                    dot.classList.add('bg-emerald-500', 'text-white');
+                } else {
+                    dot.classList.add('bg-gray-200', 'text-gray-500');
+                    dot.classList.remove('bg-emerald-500', 'text-white');
+                }
+            }
+
+            currentStep = step;
+        }
+
+        function toggleAllAgree() {
+            const allChecked = document.getElementById('agreeAll').checked;
+            document.querySelectorAll('.agree-item').forEach(item => {
+                item.checked = allChecked;
+            });
+        }
+
+        document.querySelectorAll('.agree-item').forEach(item => {
+            item.addEventListener('change', () => {
+                const allChecked = Array.from(document.querySelectorAll('.agree-item')).every(i => i.checked);
+                document.getElementById('agreeAll').checked = allChecked;
+            });
+        });
+
+        async function handleSignup(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            btn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+            btn.disabled = true;
+            errorMsg.classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/users/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value,
+                        contactName: document.getElementById('name').value,
+                        companyName: document.getElementById('companyName').value,
+                        phone: document.getElementById('phone').value,
+                        industry: document.getElementById('industry').value,
+                        employeeCount: document.getElementById('employeeCount').value,
+                        agreeMarketing: document.getElementById('agreeMarketing').checked
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    window.location.href = '/welcome';
+                } else {
+                    errorMsg.textContent = data.error || '회원가입에 실패했습니다.';
+                    errorMsg.classList.remove('hidden');
+                }
+            } catch (error) {
+                errorMsg.textContent = '서버 연결에 실패했습니다.';
+                errorMsg.classList.remove('hidden');
+            }
+
+            btn.innerHTML = '가입 완료';
+            btn.disabled = false;
+        }
+
+        function socialSignup(provider) {
+            alert(`${provider} 간편 가입은 준비 중입니다.`);
+        }
+    </script>
+</body>
+</html>

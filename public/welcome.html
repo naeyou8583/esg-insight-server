@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 완료 | ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes checkmark {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes scale-in {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fade-up {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .animate-checkmark {
+            animation: checkmark 0.5s ease-out forwards;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+        }
+        .animate-scale-in {
+            animation: scale-in 0.5s ease-out forwards;
+        }
+        .animate-fade-up {
+            animation: fade-up 0.5s ease-out forwards;
+        }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <span class="font-bold text-lg text-gray-900">ESG Insight</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto px-6 py-16">
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-lg border border-gray-100 text-center">
+            <!-- 성공 아이콘 -->
+            <div class="w-24 h-24 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path class="animate-checkmark" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <!-- 환영 메시지 -->
+            <h1 class="text-3xl font-bold text-gray-900 mb-3 animate-fade-up delay-1" style="opacity: 0;">
+                환영합니다! 🎉
+            </h1>
+            <p class="text-lg text-gray-600 mb-8 animate-fade-up delay-2" style="opacity: 0;">
+                <span class="font-semibold gradient-text">그린테크 주식회사</span>님의 회원가입이 완료되었습니다.
+            </p>
+
+            <!-- 무료 체험 안내 -->
+            <div class="bg-gradient-to-r from-emerald-50 to-cyan-50 rounded-2xl p-6 mb-8 animate-fade-up delay-3" style="opacity: 0;">
+                <div class="flex items-center justify-center gap-3 mb-3">
+                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-xl font-bold text-emerald-700">14일 무료 체험 시작!</span>
+                </div>
+                <p class="text-gray-600">
+                    모든 프리미엄 기능을 14일간 무료로 체험하실 수 있습니다.<br>
+                    <span class="text-sm text-gray-500">체험 기간 종료 전 언제든지 취소 가능합니다.</span>
+                </p>
+            </div>
+
+            <!-- 다음 단계 -->
+            <div class="text-left mb-8 animate-fade-up delay-4" style="opacity: 0;">
+                <h2 class="font-bold text-gray-900 mb-4 text-center">🚀 시작하기</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+                        <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center shrink-0 text-emerald-600 font-bold">1</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">회사 정보 입력</h3>
+                            <p class="text-sm text-gray-600">정확한 ESG 분석을 위해 기본 정보를 입력해주세요.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+                        <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center shrink-0 text-emerald-600 font-bold">2</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">ESG 데이터 입력</h3>
+                            <p class="text-sm text-gray-600">환경, 사회, 지배구조 데이터를 입력하세요.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+                        <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center shrink-0 text-emerald-600 font-bold">3</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">AI 분석 보고서 받기</h3>
+                            <p class="text-sm text-gray-600">AI가 분석한 ESG 점수와 개선 제안을 확인하세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA 버튼 -->
+            <div class="space-y-3">
+                <a href="/dashboard" class="block w-full py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-bold text-lg hover:opacity-90 transition-opacity">
+                    대시보드로 이동
+                </a>
+                <p class="text-sm text-gray-500">
+                    문의사항이 있으신가요? <a href="/support" class="text-emerald-600 hover:underline">고객센터</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- 추가 정보 -->
+        <div class="mt-8 grid md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-1">사용 가이드</h3>
+                <p class="text-sm text-gray-500">처음 사용하시나요?</p>
+                <a href="/guide" class="text-sm text-emerald-600 hover:underline">가이드 보기 →</a>
+            </div>
+            <div class="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-1">FAQ</h3>
+                <p class="text-sm text-gray-500">자주 묻는 질문</p>
+                <a href="/support#faq" class="text-sm text-emerald-600 hover:underline">FAQ 보기 →</a>
+            </div>
+            <div class="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-1">이메일 확인</h3>
+                <p class="text-sm text-gray-500">인증 메일 발송 완료</p>
+                <span class="text-sm text-gray-400">받은편지함 확인</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 페이지 로드 시 애니메이션 트리거
+        document.addEventListener('DOMContentLoaded', function() {
+            // 지연된 요소들에 대한 애니메이션 트리거
+            setTimeout(() => {
+                document.querySelectorAll('.animate-fade-up').forEach(el => {
+                    el.style.opacity = '1';
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

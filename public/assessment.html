@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-ESG 자가진단 - ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #ecfdf5 0%, #cffafe 100%); }
+        .gradient-text { background: linear-gradient(135deg, #059669 0%, #0891b2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .progress-ring { transition: stroke-dashoffset 0.5s ease; }
+        .score-btn { transition: all 0.2s ease; }
+        .score-btn:hover { transform: scale(1.1); }
+        .score-btn.selected { transform: scale(1.15); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3); }
+        .tab-btn.active { border-color: #10b981; color: #059669; background-color: #ecfdf5; }
+        .criteria-card { transition: all 0.3s ease; }
+        .criteria-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .loading-spinner { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="/" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-leaf text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">ESG Insight</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-emerald-600">홈</a>
+                    <a href="/features" class="text-gray-600 hover:text-emerald-600">기능</a>
+                    <a href="/pricing" class="text-gray-600 hover:text-emerald-600">요금제</a>
+                    <a href="/dashboard" class="text-gray-600 hover:text-emerald-600">대시보드</a>
+                    <a href="/login" class="text-emerald-600 font-medium">로그인</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="text-center py-20">
+            <div class="inline-block w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full loading-spinner mb-4"></div>
+            <p class="text-gray-600">K-ESG 평가 기준을 불러오는 중...</p>
+        </div>
+
+        <!-- Error Screen -->
+        <div id="errorScreen" class="hidden text-center py-20">
+            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-exclamation-triangle text-3xl text-red-500"></i>
+            </div>
+            <h2 class="text-xl font-bold text-gray-900 mb-2">기준 로드 실패</h2>
+            <p id="errorMessage" class="text-gray-600 mb-6">K-ESG 평가 기준을 불러올 수 없습니다.</p>
+            <button onclick="loadCriteria()" class="px-6 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600">
+                <i class="fas fa-redo mr-2"></i>다시 시도
+            </button>
+        </div>
+
+        <!-- Intro Screen -->
+        <div id="introScreen" class="hidden">
+            <div class="gradient-bg rounded-2xl p-8 mb-8 text-center">
+                <div class="inline-flex items-center bg-white rounded-full px-4 py-2 shadow-sm mb-4">
+                    <i class="fas fa-clipboard-check text-emerald-500 mr-2"></i>
+                    <span class="text-sm font-medium text-gray-700">K-ESG 가이드라인 기반</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    K-ESG <span class="gradient-text">자가진단</span>
+                </h1>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    산업통상자원부 K-ESG 가이드라인에 따른 공식 평가 항목으로<br>
+                    우리 기업의 ESG 수준을 진단해보세요.
+                </p>
+            </div>
+
+            <!-- Version Info -->
+            <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                        <h3 class="font-bold text-gray-900">현재 적용된 평가 기준</h3>
+                        <p id="versionInfo" class="text-sm text-gray-500 mt-1">K-ESG 가이드라인</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="text-center">
+                            <div id="criteriaCountE" class="text-2xl font-bold text-green-600">0</div>
+                            <div class="text-xs text-gray-500">환경(E)</div>
+                        </div>
+                        <div class="text-center">
+                            <div id="criteriaCountS" class="text-2xl font-bold text-blue-600">0</div>
+                            <div class="text-xs text-gray-500">사회(S)</div>
+                        </div>
+                        <div class="text-center">
+                            <div id="criteriaCountG" class="text-2xl font-bold text-purple-600">0</div>
+                            <div class="text-xs text-gray-500">지배구조(G)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Info Form -->
+            <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+                <h3 class="font-bold text-gray-900 mb-4"><i class="fas fa-building mr-2 text-emerald-500"></i>기업 정보</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">회사명 *</label>
+                        <input type="text" id="companyName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="회사명 입력">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">업종</label>
+                        <select id="industry" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                            <option value="">업종 선택</option>
+                            <option value="제조업">제조업</option>
+                            <option value="IT/소프트웨어">IT/소프트웨어</option>
+                            <option value="서비스업">서비스업</option>
+                            <option value="유통/소매">유통/소매</option>
+                            <option value="건설업">건설업</option>
+                            <option value="금융/보험">금융/보험</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">직원 수</label>
+                        <select id="employees" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                            <option value="">직원 수 선택</option>
+                            <option value="1-10">1~10명</option>
+                            <option value="11-50">11~50명</option>
+                            <option value="51-100">51~100명</option>
+                            <option value="101-300">101~300명</option>
+                            <option value="300+">300명 이상</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">이메일 (리포트 수신용)</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="이메일 입력">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="startAssessment()" class="w-full py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-semibold text-lg hover:shadow-lg transition">
+                <i class="fas fa-play-circle mr-2"></i>진단 시작하기
+            </button>
+        </div>
+
+        <!-- Assessment Screen -->
+        <div id="assessmentScreen" class="hidden">
+            <!-- Progress Header -->
+            <div class="bg-white rounded-xl p-4 shadow-sm mb-6 sticky top-20 z-40">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span id="currentCategory" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                            <i class="fas fa-leaf mr-1"></i>환경 (E)
+                        </span>
+                        <span id="progressText" class="text-sm text-gray-500">0 / 0 항목</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-2xl font-bold gradient-text" id="currentScore">0</span>
+                        <span class="text-sm text-gray-500">점</span>
+                    </div>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
+                <button onclick="switchCategory('E')" id="tabE" class="tab-btn flex-shrink-0 px-6 py-3 border-2 border-green-500 text-green-700 bg-green-50 rounded-xl font-medium active">
+                    <i class="fas fa-leaf mr-2"></i>환경 (E)
+                    <span id="tabCountE" class="ml-2 px-2 py-0.5 bg-green-200 text-green-800 rounded-full text-xs">0</span>
+                </button>
+                <button onclick="switchCategory('S')" id="tabS" class="tab-btn flex-shrink-0 px-6 py-3 border-2 border-gray-300 text-gray-600 rounded-xl font-medium hover:border-blue-300">
+                    <i class="fas fa-users mr-2"></i>사회 (S)
+                    <span id="tabCountS" class="ml-2 px-2 py-0.5 bg-gray-200 text-gray-600 rounded-full text-xs">0</span>
+                </button>
+                <button onclick="switchCategory('G')" id="tabG" class="tab-btn flex-shrink-0 px-6 py-3 border-2 border-gray-300 text-gray-600 rounded-xl font-medium hover:border-purple-300">
+                    <i class="fas fa-landmark mr-2"></i>지배구조 (G)
+                    <span id="tabCountG" class="ml-2 px-2 py-0.5 bg-gray-200 text-gray-600 rounded-full text-xs">0</span>
+                </button>
+            </div>
+
+            <!-- Criteria List -->
+            <div id="criteriaList" class="space-y-4">
+                <!-- 동적으로 생성됨 -->
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex justify-between mt-8 pt-6 border-t">
+                <button onclick="prevCategory()" id="prevCategoryBtn" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition hidden">
+                    <i class="fas fa-arrow-left mr-2"></i>이전 영역
+                </button>
+                <button onclick="nextCategory()" id="nextCategoryBtn" class="px-6 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl hover:shadow-lg transition">
+                    다음 영역<i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                <button onclick="showResults()" id="finishBtn" class="hidden px-6 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl hover:shadow-lg transition">
+                    결과 보기<i class="fas fa-chart-pie ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="resultScreen" class="hidden">
+            <!-- Score Summary -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">K-ESG 진단 결과</h2>
+                    <p id="resultCompanyName" class="text-gray-600"></p>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
+                    <!-- Total Score Circle -->
+                    <div class="relative">
+                        <svg class="w-48 h-48 transform -rotate-90">
+                            <circle cx="96" cy="96" r="88" stroke="#e5e7eb" stroke-width="12" fill="none"/>
+                            <circle id="scoreCircle" cx="96" cy="96" r="88" stroke="url(#gradient)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="553" class="progress-ring"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#059669"/>
+                                    <stop offset="100%" stop-color="#0891b2"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <div id="totalScoreDisplay" class="text-5xl font-bold gradient-text">0</div>
+                            <div class="text-gray-500">/ 100점</div>
+                        </div>
+                    </div>
+
+                    <!-- Category Scores -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-leaf text-green-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-medium text-gray-700">환경 (E)</span>
+                                    <span id="scoreE" class="font-bold text-green-600">0점</span>
+                                </div>
+                                <div class="h-2 bg-gray-200 rounded-full w-48">
+                                    <div id="barE" class="h-full bg-green-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-users text-blue-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-medium text-gray-700">사회 (S)</span>
+                                    <span id="scoreS" class="font-bold text-blue-600">0점</span>
+                                </div>
+                                <div class="h-2 bg-gray-200 rounded-full w-48">
+                                    <div id="barS" class="h-full bg-blue-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-landmark text-purple-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-medium text-gray-700">지배구조 (G)</span>
+                                    <span id="scoreG" class="font-bold text-purple-600">0점</span>
+                                </div>
+                                <div class="h-2 bg-gray-200 rounded-full w-48">
+                                    <div id="barG" class="h-full bg-purple-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grade -->
+                <div class="text-center p-6 bg-gradient-to-r from-emerald-50 to-cyan-50 rounded-xl">
+                    <p class="text-gray-600 mb-2">종합 등급</p>
+                    <div id="gradeDisplay" class="text-6xl font-bold gradient-text">-</div>
+                    <p id="gradeDescription" class="text-gray-600 mt-2"></p>
+                </div>
+            </div>
+
+            <!-- Detailed Results -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="font-bold text-gray-900 mb-4"><i class="fas fa-list-check mr-2 text-emerald-500"></i>세부 평가 결과</h3>
+                
+                <div class="flex gap-2 mb-4 border-b">
+                    <button onclick="showResultCategory('E')" id="resultTabE" class="px-4 py-2 text-green-600 border-b-2 border-green-500 font-medium">환경 (E)</button>
+                    <button onclick="showResultCategory('S')" id="resultTabS" class="px-4 py-2 text-gray-500 hover:text-blue-600">사회 (S)</button>
+                    <button onclick="showResultCategory('G')" id="resultTabG" class="px-4 py-2 text-gray-500 hover:text-purple-600">지배구조 (G)</button>
+                </div>
+
+                <div id="detailedResults" class="space-y-3 max-h-96 overflow-y-auto"></div>
+            </div>
+
+            <!-- AI Report Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="font-bold text-gray-900 mb-4"><i class="fas fa-robot mr-2 text-emerald-500"></i>AI 분석 리포트</h3>
+                
+                <div id="reportPlaceholder" class="text-center py-8">
+                    <p class="text-gray-600 mb-4">AI가 평가 결과를 분석하여 맞춤형 개선 방안을 제시합니다.</p>
+                    <button onclick="generateAIReport()" class="px-6 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition">
+                        <i class="fas fa-magic mr-2"></i>AI 리포트 생성하기
+                    </button>
+                </div>
+
+                <div id="reportLoading" class="hidden text-center py-8">
+                    <div class="inline-block w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full loading-spinner mb-4"></div>
+                    <p class="text-gray-600">AI가 리포트를 생성하고 있습니다...</p>
+                    <p class="text-sm text-gray-400 mt-2">약 30초~1분 소요</p>
+                </div>
+
+                <div id="reportContent" class="hidden prose max-w-none"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button onclick="downloadReport()" class="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-xl font-medium hover:bg-emerald-600 transition">
+                    <i class="fas fa-download mr-2"></i>리포트 다운로드
+                </button>
+                <button onclick="restartAssessment()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition">
+                    <i class="fas fa-redo mr-2"></i>다시 진단하기
+                </button>
+                <a href="/dashboard" class="flex-1 px-6 py-3 bg-gray-800 text-white rounded-xl font-medium hover:bg-gray-900 transition text-center">
+                    <i class="fas fa-chart-line mr-2"></i>대시보드 보기
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <span id="toastMessage">메시지</span>
+    </div>
+
+    <script>
+        // 상태 관리
+        let criteria = { E: [], S: [], G: [] };
+        let answers = {};
+        let currentCategory = 'E';
+        let companyInfo = {};
+        let aiReport = null;
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', loadCriteria);
+
+        // K-ESG 기준 로드
+        async function loadCriteria() {
+            showScreen('loading');
+            
+            try {
+                const response = await fetch('/api/admin/criteria');
+                const data = await response.json();
+                
+                if (data.criteria) {
+                    criteria = data.criteria;
+                    
+                    document.getElementById('criteriaCountE').textContent = criteria.E?.length || 0;
+                    document.getElementById('criteriaCountS').textContent = criteria.S?.length || 0;
+                    document.getElementById('criteriaCountG').textContent = criteria.G?.length || 0;
+                    document.getElementById('versionInfo').textContent = data.version || 'K-ESG 가이드라인';
+                    
+                    document.getElementById('tabCountE').textContent = criteria.E?.length || 0;
+                    document.getElementById('tabCountS').textContent = criteria.S?.length || 0;
+                    document.getElementById('tabCountG').textContent = criteria.G?.length || 0;
+                    
+                    showScreen('intro');
+                } else {
+                    throw new Error('기준 데이터가 없습니다.');
+                }
+            } catch (error) {
+                console.error('기준 로드 실패:', error);
+                document.getElementById('errorMessage').textContent = error.message;
+                showScreen('error');
+            }
+        }
+
+        function showScreen(screen) {
+            ['loading', 'error', 'intro', 'assessment', 'result'].forEach(s => {
+                document.getElementById(s + 'Screen').classList.add('hidden');
+            });
+            document.getElementById(screen + 'Screen').classList.remove('hidden');
+        }
+
+        function startAssessment() {
+            const companyName = document.getElementById('companyName').value.trim();
+            if (!companyName) {
+                showToast('회사명을 입력해주세요.');
+                return;
+            }
+            
+            companyInfo = {
+                name: companyName,
+                industry: document.getElementById('industry').value,
+                employees: document.getElementById('employees').value,
+                email: document.getElementById('email').value
+            };
+            
+            answers = {};
+            currentCategory = 'E';
+            renderCriteria('E');
+            updateProgress();
+            updateNavigationButtons();
+            showScreen('assessment');
+        }
+
+        function renderCriteria(category) {
+            const container = document.getElementById('criteriaList');
+            const items = criteria[category] || [];
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <i class="fas fa-inbox text-4xl mb-4"></i>
+                        <p>이 카테고리에 평가 항목이 없습니다.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const colors = {
+                E: { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-600', btn: 'bg-green-500' },
+                S: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-600', btn: 'bg-blue-500' },
+                G: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-600', btn: 'bg-purple-500' }
+            };
+            const color = colors[category];
+            
+            container.innerHTML = items.map((item, index) => {
+                const answerId = `${category}-${index}`;
+                const currentAnswer = answers[answerId] || 0;
+                
+                return `
+                    <div class="criteria-card bg-white rounded-xl p-6 border ${color.border}">
+                        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2 flex-wrap">
+                                    <span class="px-2 py-1 ${color.bg} ${color.text} rounded text-xs font-medium">
+                                        ${item.code || item.id || (category + '-' + (index + 1))}
+                                    </span>
+                                    <span class="text-xs text-gray-400">${item.category || ''}</span>
+                                </div>
+                                <h4 class="font-medium text-gray-900 mb-2">${item.name || '항목명 없음'}</h4>
+                                <p class="text-sm text-gray-500">${item.description || ''}</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <div class="flex gap-1">
+                                    ${[1, 2, 3, 4, 5].map(score => `
+                                        <button onclick="setAnswer('${answerId}', ${score})" 
+                                            class="score-btn w-10 h-10 rounded-lg border-2 font-medium transition
+                                                ${currentAnswer === score 
+                                                    ? color.btn + ' text-white border-transparent selected' 
+                                                    : 'border-gray-300 text-gray-600 hover:border-gray-400'}">
+                                            ${score}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                                <p class="text-xs text-gray-400 text-center mt-1">1:미흡 ~ 5:우수</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setAnswer(answerId, score) {
+            answers[answerId] = score;
+            renderCriteria(currentCategory);
+            updateProgress();
+            updateCurrentScore();
+        }
+
+        function updateProgress() {
+            const totalItems = (criteria.E?.length || 0) + (criteria.S?.length || 0) + (criteria.G?.length || 0);
+            const answeredItems = Object.keys(answers).length;
+            const percent = totalItems > 0 ? (answeredItems / totalItems) * 100 : 0;
+            
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').textContent = `${answeredItems} / ${totalItems} 항목`;
+            
+            const categoryLabels = {
+                E: { text: '환경 (E)', icon: 'fa-leaf', color: 'bg-green-100 text-green-700' },
+                S: { text: '사회 (S)', icon: 'fa-users', color: 'bg-blue-100 text-blue-700' },
+                G: { text: '지배구조 (G)', icon: 'fa-landmark', color: 'bg-purple-100 text-purple-700' }
+            };
+            const label = categoryLabels[currentCategory];
+            document.getElementById('currentCategory').innerHTML = `<i class="fas ${label.icon} mr-1"></i>${label.text}`;
+            document.getElementById('currentCategory').className = `px-3 py-1 ${label.color} rounded-full text-sm font-medium`;
+        }
+
+        function updateCurrentScore() {
+            const scores = calculateScores();
+            const totalScore = Math.round((scores.E + scores.S + scores.G) / 3);
+            document.getElementById('currentScore').textContent = totalScore;
+        }
+
+        function calculateScores() {
+            const scores = { E: 0, S: 0, G: 0 };
+            
+            ['E', 'S', 'G'].forEach(cat => {
+                const items = criteria[cat] || [];
+                if (items.length === 0) return;
+                
+                let totalScore = 0;
+                let answeredCount = 0;
+                
+                items.forEach((item, index) => {
+                    const answerId = `${cat}-${index}`;
+                    if (answers[answerId]) {
+                        totalScore += answers[answerId];
+                        answeredCount++;
+                    }
+                });
+                
+                if (answeredCount > 0) {
+                    scores[cat] = Math.round((totalScore / (answeredCount * 5)) * 100);
+                }
+            });
+            
+            return scores;
+        }
+
+        function switchCategory(category) {
+            currentCategory = category;
+            
+            ['E', 'S', 'G'].forEach(cat => {
+                const tab = document.getElementById('tab' + cat);
+                if (cat === category) {
+                    const colors = { E: 'border-green-500 text-green-700 bg-green-50', S: 'border-blue-500 text-blue-700 bg-blue-50', G: 'border-purple-500 text-purple-700 bg-purple-50' };
+                    tab.className = `tab-btn flex-shrink-0 px-6 py-3 border-2 ${colors[cat]} rounded-xl font-medium active`;
+                } else {
+                    tab.className = 'tab-btn flex-shrink-0 px-6 py-3 border-2 border-gray-300 text-gray-600 rounded-xl font-medium hover:border-gray-400';
+                }
+            });
+            
+            renderCriteria(category);
+            updateProgress();
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            const categories = ['E', 'S', 'G'];
+            const currentIndex = categories.indexOf(currentCategory);
+            
+            document.getElementById('prevCategoryBtn').classList.toggle('hidden', currentIndex === 0);
+            document.getElementById('nextCategoryBtn').classList.toggle('hidden', currentIndex === 2);
+            document.getElementById('finishBtn').classList.toggle('hidden', currentIndex !== 2);
+        }
+
+        function prevCategory() {
+            const categories = ['E', 'S', 'G'];
+            const currentIndex = categories.indexOf(currentCategory);
+            if (currentIndex > 0) switchCategory(categories[currentIndex - 1]);
+        }
+
+        function nextCategory() {
+            const categories = ['E', 'S', 'G'];
+            const currentIndex = categories.indexOf(currentCategory);
+            if (currentIndex < 2) switchCategory(categories[currentIndex + 1]);
+        }
+
+        function showResults() {
+            const scores = calculateScores();
+            const totalScore = Math.round((scores.E + scores.S + scores.G) / 3);
+            
+            document.getElementById('resultCompanyName').textContent = companyInfo.name;
+            
+            const scoreCircle = document.getElementById('scoreCircle');
+            const circumference = 2 * Math.PI * 88;
+            scoreCircle.style.strokeDashoffset = circumference - (totalScore / 100) * circumference;
+            
+            setTimeout(() => {
+                document.getElementById('totalScoreDisplay').textContent = totalScore;
+            }, 500);
+            
+            document.getElementById('scoreE').textContent = scores.E + '점';
+            document.getElementById('scoreS').textContent = scores.S + '점';
+            document.getElementById('scoreG').textContent = scores.G + '점';
+            document.getElementById('barE').style.width = scores.E + '%';
+            document.getElementById('barS').style.width = scores.S + '%';
+            document.getElementById('barG').style.width = scores.G + '%';
+            
+            let grade, gradeDesc;
+            if (totalScore >= 90) { grade = 'A+'; gradeDesc = '최우수 - ESG 경영 선도 기업'; }
+            else if (totalScore >= 80) { grade = 'A'; gradeDesc = '우수 - ESG 경영 우수 기업'; }
+            else if (totalScore >= 70) { grade = 'B+'; gradeDesc = '양호 - ESG 경영 양호 기업'; }
+            else if (totalScore >= 60) { grade = 'B'; gradeDesc = '보통 - ESG 경영 개선 필요'; }
+            else if (totalScore >= 50) { grade = 'C'; gradeDesc = '미흡 - ESG 경영 체계 구축 필요'; }
+            else { grade = 'D'; gradeDesc = '취약 - ESG 경영 기초 단계'; }
+            
+            document.getElementById('gradeDisplay').textContent = grade;
+            document.getElementById('gradeDescription').textContent = gradeDesc;
+            
+            // 결과를 서버에 저장
+            saveAssessmentResults(scores, totalScore);
+            
+            showResultCategory('E');
+            showScreen('result');
+        }
+
+        // 결과 저장 함수
+        async function saveAssessmentResults(scores, totalScore) {
+            try {
+                const evaluationDetails = {};
+                ['E', 'S', 'G'].forEach(cat => {
+                    evaluationDetails[cat] = (criteria[cat] || []).map((item, index) => ({
+                        code: item.code || `${cat}-${index + 1}`,
+                        name: item.name,
+                        category: item.category,
+                        score: answers[`${cat}-${index}`] || 0
+                    }));
+                });
+
+                await fetch('/api/assessment/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        companyInfo,
+                        scores,
+                        totalScore,
+                        evaluationDetails,
+                        aiReport: aiReport || null
+                    })
+                });
+                console.log('Assessment 결과 저장 완료');
+            } catch (error) {
+                console.error('결과 저장 실패:', error);
+            }
+        }
+
+        function showResultCategory(category) {
+            ['E', 'S', 'G'].forEach(cat => {
+                const tab = document.getElementById('resultTab' + cat);
+                if (cat === category) {
+                    const colors = { E: 'text-green-600 border-b-2 border-green-500', S: 'text-blue-600 border-b-2 border-blue-500', G: 'text-purple-600 border-b-2 border-purple-500' };
+                    tab.className = `px-4 py-2 ${colors[cat]} font-medium`;
+                } else {
+                    tab.className = 'px-4 py-2 text-gray-500 hover:text-gray-700';
+                }
+            });
+            
+            const items = criteria[category] || [];
+            const colors = {
+                E: { bg: 'bg-green-100', text: 'text-green-600' },
+                S: { bg: 'bg-blue-100', text: 'text-blue-600' },
+                G: { bg: 'bg-purple-100', text: 'text-purple-600' }
+            };
+            const color = colors[category];
+            
+            document.getElementById('detailedResults').innerHTML = items.map((item, index) => {
+                const answerId = `${category}-${index}`;
+                const score = answers[answerId] || 0;
+                const scorePercent = (score / 5) * 100;
+                
+                return `
+                    <div class="flex items-center justify-between p-3 rounded-lg ${score >= 4 ? 'bg-green-50' : score >= 3 ? 'bg-yellow-50' : score > 0 ? 'bg-red-50' : 'bg-gray-50'}">
+                        <div class="flex items-center gap-3 flex-1 min-w-0">
+                            <span class="px-2 py-1 ${color.bg} ${color.text} rounded text-xs font-medium flex-shrink-0">
+                                ${item.code || (category + '-' + (index + 1))}
+                            </span>
+                            <span class="text-sm text-gray-700 truncate">${item.name || '항목'}</span>
+                        </div>
+                        <div class="flex items-center gap-2 flex-shrink-0">
+                            <div class="w-24 h-2 bg-gray-200 rounded-full">
+                                <div class="h-full rounded-full ${score >= 4 ? 'bg-green-500' : score >= 3 ? 'bg-yellow-500' : score > 0 ? 'bg-red-500' : 'bg-gray-300'}" style="width: ${scorePercent}%"></div>
+                            </div>
+                            <span class="text-sm font-medium w-8 text-right">${score}/5</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function generateAIReport() {
+            document.getElementById('reportPlaceholder').classList.add('hidden');
+            document.getElementById('reportLoading').classList.remove('hidden');
+            
+            try {
+                const scores = calculateScores();
+                const totalScore = Math.round((scores.E + scores.S + scores.G) / 3);
+                
+                const evaluationDetails = {};
+                ['E', 'S', 'G'].forEach(cat => {
+                    evaluationDetails[cat] = (criteria[cat] || []).map((item, index) => ({
+                        code: item.code || `${cat}-${index + 1}`,
+                        name: item.name,
+                        category: item.category,
+                        score: answers[`${cat}-${index}`] || 0
+                    }));
+                });
+                
+                const response = await fetch('/api/assessment/report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        companyInfo,
+                        scores,
+                        totalScore,
+                        evaluationDetails,
+                        criteria
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.report) {
+                    aiReport = data.report;
+                    document.getElementById('reportContent').innerHTML = formatReport(data.report);
+                    document.getElementById('reportContent').classList.remove('hidden');
+                    
+                    // AI 리포트 포함하여 결과 다시 저장
+                    saveAssessmentResults(scores, totalScore);
+                } else {
+                    throw new Error(data.error || '리포트 생성 실패');
+                }
+            } catch (error) {
+                console.error('리포트 생성 오류:', error);
+                document.getElementById('reportContent').innerHTML = `
+                    <div class="text-center py-8 text-red-500">
+                        <i class="fas fa-exclamation-circle text-3xl mb-4"></i>
+                        <p>리포트 생성 중 오류가 발생했습니다.</p>
+                        <p class="text-sm mt-2">${error.message}</p>
+                        <button onclick="generateAIReport()" class="mt-4 px-4 py-2 bg-emerald-500 text-white rounded-lg">다시 시도</button>
+                    </div>
+                `;
+                document.getElementById('reportContent').classList.remove('hidden');
+            }
+            
+            document.getElementById('reportLoading').classList.add('hidden');
+        }
+
+        function formatReport(text) {
+            return text
+                .replace(/^### (.*$)/gm, '<h3 class="text-lg font-bold text-gray-900 mt-6 mb-3">$1</h3>')
+                .replace(/^## (.*$)/gm, '<h2 class="text-xl font-bold text-gray-900 mt-8 mb-4">$1</h2>')
+                .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold text-gray-900 mt-8 mb-4">$1</h1>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/^- (.*$)/gm, '<li class="ml-4">$1</li>')
+                .replace(/\n\n/g, '</p><p class="my-3 text-gray-700">');
+        }
+
+        async function downloadReport() {
+            const scores = calculateScores();
+            const totalScore = Math.round((scores.E + scores.S + scores.G) / 3);
+            
+            // 등급 계산
+            let grade, gradeDesc;
+            if (totalScore >= 90) { grade = 'A+'; gradeDesc = '최우수'; }
+            else if (totalScore >= 80) { grade = 'A'; gradeDesc = '우수'; }
+            else if (totalScore >= 70) { grade = 'B+'; gradeDesc = '양호'; }
+            else if (totalScore >= 60) { grade = 'B'; gradeDesc = '보통'; }
+            else if (totalScore >= 50) { grade = 'C'; gradeDesc = '미흡'; }
+            else { grade = 'D'; gradeDesc = '취약'; }
+
+            const today = new Date().toLocaleDateString('ko-KR');
+
+            // AI 리포트 정리
+            let cleanAiReport = '';
+            if (aiReport) {
+                cleanAiReport = aiReport
+                    .replace(/^# (.*$)/gm, '<h2 style="color: #059669; margin: 25px 0 15px 0; padding-top: 20px; border-top: 2px solid #e5e7eb;">$1</h2>')
+                    .replace(/^## (.*$)/gm, '<h3 style="color: #333; margin: 20px 0 10px 0;">$1</h3>')
+                    .replace(/^### (.*$)/gm, '<h4 style="color: #666; margin: 15px 0 8px 0;">$1</h4>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/^- (.*$)/gm, '<li style="margin: 5px 0 5px 20px;">$1</li>')
+                    .replace(/\n\n/g, '<br><br>')
+                    .replace(/\n/g, '<br>');
+            }
+
+            // PDF용 HTML 페이지
+            const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>K-ESG 진단 결과 - ${companyInfo.name}</title>
+    <style>
+        @page { 
+            size: A4; 
+            margin: 15mm; 
+        }
+        @media print { 
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; 
+            padding: 0;
+            margin: 0;
+            color: #333; 
+            line-height: 1.6;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        .header { 
+            text-align: center; 
+            border-bottom: 3px solid #059669; 
+            padding-bottom: 25px; 
+            margin-bottom: 30px; 
+        }
+        .title { font-size: 28px; font-weight: bold; color: #059669; }
+        .subtitle { color: #888; margin-top: 8px; font-size: 14px; }
+        
+        .section { 
+            background: #f9fafb; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+        }
+        .section-title { 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #059669; 
+            margin-bottom: 20px; 
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb; 
+        }
+        
+        .info-table { width: 100%; }
+        .info-table td { padding: 10px 0; font-size: 15px; }
+        .info-label { color: #666; width: 100px; }
+        
+        .score-box { 
+            text-align: center; 
+            padding: 35px; 
+            background: linear-gradient(135deg, #ecfdf5, #e0f2fe); 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+        }
+        .score-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+        .total-score { font-size: 64px; font-weight: bold; color: #059669; }
+        .total-label { color: #666; font-size: 14px; margin-top: 5px; }
+        .grade { font-size: 52px; font-weight: bold; color: #059669; }
+        .grade-label { color: #666; font-size: 14px; margin-top: 5px; }
+        
+        .category-scores { 
+            display: flex; 
+            gap: 20px; 
+            margin-bottom: 25px; 
+        }
+        .cat-box { 
+            flex: 1; 
+            text-align: center; 
+            padding: 25px 15px; 
+            border-radius: 12px; 
+        }
+        .cat-e { background: #f0fdf4; }
+        .cat-s { background: #eff6ff; }
+        .cat-g { background: #faf5ff; }
+        .cat-label { font-size: 14px; margin-bottom: 8px; }
+        .cat-e .cat-label, .cat-e .cat-score { color: #16a34a; }
+        .cat-s .cat-label, .cat-s .cat-score { color: #2563eb; }
+        .cat-g .cat-label, .cat-g .cat-score { color: #9333ea; }
+        .cat-score { font-size: 36px; font-weight: bold; }
+        
+        .ai-report { 
+            font-size: 14px; 
+            line-height: 1.9; 
+        }
+        
+        .footer { 
+            text-align: center; 
+            color: #999; 
+            font-size: 12px; 
+            margin-top: 40px; 
+            padding-top: 25px; 
+            border-top: 1px solid #ddd; 
+        }
+        
+        .print-btn { 
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            padding: 15px 30px; 
+            background: #059669; 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+            z-index: 1000;
+        }
+        .print-btn:hover { background: #047857; }
+        .print-info {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #fef3c7;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #92400e;
+            max-width: 250px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">📄 PDF로 저장</button>
+    <div class="print-info no-print">
+        💡 버튼을 클릭 후 "PDF로 저장" 선택하세요
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="title">K-ESG 자가진단 결과 리포트</div>
+            <div class="subtitle">ESG Insight</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📋 기업 정보</div>
+            <table class="info-table">
+                <tr><td class="info-label">기업명</td><td><strong>${companyInfo.name}</strong></td></tr>
+                <tr><td class="info-label">업종</td><td>${companyInfo.industry || '미입력'}</td></tr>
+                <tr><td class="info-label">직원 수</td><td>${companyInfo.employees || '미입력'}</td></tr>
+                <tr><td class="info-label">진단일</td><td>${today}</td></tr>
+            </table>
+        </div>
+
+        <div class="score-box">
+            <div class="section-title" style="border: none; text-align: center; margin-bottom: 25px;">🏆 종합 평가</div>
+            <div class="score-row">
+                <div>
+                    <div class="total-score">${totalScore}</div>
+                    <div class="total-label">/ 100점</div>
+                </div>
+                <div>
+                    <div class="grade">${grade}</div>
+                    <div class="grade-label">${gradeDesc}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title" style="margin-bottom: 15px;">📊 영역별 점수</div>
+        <div class="category-scores">
+            <div class="cat-box cat-e">
+                <div class="cat-label">🌱 환경 (E)</div>
+                <div class="cat-score">${scores.E}점</div>
+            </div>
+            <div class="cat-box cat-s">
+                <div class="cat-label">👥 사회 (S)</div>
+                <div class="cat-score">${scores.S}점</div>
+            </div>
+            <div class="cat-box cat-g">
+                <div class="cat-label">🏛️ 지배구조 (G)</div>
+                <div class="cat-score">${scores.G}점</div>
+            </div>
+        </div>
+
+        ${cleanAiReport ? `
+        <div class="section">
+            <div class="section-title">🤖 AI 분석 리포트</div>
+            <div class="ai-report">${cleanAiReport}</div>
+        </div>
+        ` : ''}
+
+        <div class="footer">
+            <p>본 리포트는 K-ESG 가이드라인 기반 자가진단 결과입니다.</p>
+            <p>정확한 ESG 등급 평가를 위해서는 전문 평가기관의 진단을 받으시기 바랍니다.</p>
+            <p style="margin-top: 15px;">© ${new Date().getFullYear()} ESG Insight. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>`;
+
+            // 새 창에서 열기
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            
+            showToast('새 창에서 "PDF로 저장" 버튼을 클릭하세요');
+        }
+
+        function restartAssessment() {
+            answers = {};
+            aiReport = null;
+            document.getElementById('reportPlaceholder').classList.remove('hidden');
+            document.getElementById('reportContent').classList.add('hidden');
+            showScreen('intro');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

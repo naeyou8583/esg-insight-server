@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연동 시스템 - ESG Management Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Section Base */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Integration Categories */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: var(--gray);
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Integration Grid */
+        .integrations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .integration-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .integration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .integration-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .integration-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .integration-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .integration-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .integration-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: var(--light);
+            color: var(--gray);
+        }
+
+        .integration-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .status-available {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status-coming {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-beta {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        /* Featured Integrations */
+        .featured-section {
+            background: var(--white);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .featured-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .featured-card:hover {
+            border-color: var(--primary);
+        }
+
+        .featured-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .featured-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .featured-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-features {
+            list-style: none;
+        }
+
+        .featured-features li {
+            padding: 0.5rem 0;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .featured-features li i {
+            color: var(--secondary);
+        }
+
+        /* API Section */
+        .api-section {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .api-section .section-header h2 {
+            color: var(--white);
+        }
+
+        .api-section .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .api-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .api-features {
+            list-style: none;
+        }
+
+        .api-features li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .api-features li i {
+            color: var(--secondary);
+            font-size: 1.25rem;
+            width: 30px;
+        }
+
+        .api-features li h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .api-features li p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .code-block {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .code-keyword {
+            color: #f472b6;
+        }
+
+        .code-string {
+            color: #a5f3fc;
+        }
+
+        .code-comment {
+            color: #64748b;
+        }
+
+        /* Process Section */
+        .process-section {
+            background: var(--light);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), transparent);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-step h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .process-step p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            background: var(--white);
+        }
+
+        .partners-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .partner-logo {
+            width: 120px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .partner-logo i {
+            font-size: 3rem;
+            color: var(--gray);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background: var(--light);
+        }
+
+        .btn-outline-white {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+
+        .btn-outline-white:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+            line-height: 1.8;
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .api-content {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-step::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                ESG Platform
+            </a>
+            <ul class="nav-links">
+                <li><a href="features.html">기능</a></li>
+                <li><a href="pricing.html">요금제</a></li>
+                <li><a href="integrations.html" style="color: var(--primary);">연동</a></li>
+                <li><a href="case-studies.html">고객사례</a></li>
+                <li><a href="support.html">고객지원</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn btn-outline">로그인</a>
+                <a href="signup.html" class="btn btn-primary">무료 시작</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>강력한 연동으로 더 스마트한 ESG 관리</h1>
+            <p>기존 업무 시스템과 원활하게 연동하여 ESG 데이터를 자동으로 수집하고 관리하세요. 50개 이상의 연동 옵션을 제공합니다.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number">50+</span>
+                    <span class="hero-stat-label">연동 시스템</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">99.9%</span>
+                    <span class="hero-stat-label">API 가동률</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">실시간</span>
+                    <span class="hero-stat-label">데이터 동기화</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Integrations -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>인기 연동</h2>
+                <p>가장 많이 사용되는 핵심 연동 시스템을 확인하세요</p>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <div class="featured-icon" style="color: #4285f4;">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3>Google Workspace</h3>
+                    <p>Google 스프레드시트, 드라이브와 연동하여 ESG 데이터를 자동으로 동기화합니다.</p>
+                    <ul class="featured-features">
+                        <li><i class="fas fa-check"></i> 스프레드시트 자동 동기화</li>
+                        <li><i class="fas fa-check"></i> 드라이브 문서 연동</li>
+                        <li><i class="fas fa-check"></i> 캘린더 일정 연동</li>
+                        <li><i class="fas fa-check"></i> Gmail 알림 설정</li>
+                    </ul>
+                </div>
+                <div class="featured-card">
+                    <div class="featured-icon" style="color: #0078d4;">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <h3>Microsoft 365</h3>
+                    <p>Excel, Teams, SharePoint와 연동하여 조직 전체의 ESG 협업을 강화합니다.</p>
+                    <ul class="featured-features">
+                        <li><i class="fas fa-check"></i> Excel 데이터 자동 수집</li>
+                        <li><i class="fas fa-check"></i> Teams 알림 연동</li>
+                        <li><i class="fas fa-check"></i> SharePoint 문서 관리</li>
+                        <li><i class="fas fa-check"></i> Power BI 대시보드</li>
+                    </ul>
+                </div>
+                <div class="featured-card">
+                    <div class="featured-icon" style="color: #7c3aed;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>ERP 시스템</h3>
+                    <p>SAP, Oracle 등 주요 ERP 시스템과 연동하여 재무/운영 데이터를 자동 수집합니다.</p>
+                    <ul class="featured-features">
+                        <li><i class="fas fa-check"></i> SAP ERP 연동</li>
+                        <li><i class="fas fa-check"></i> Oracle NetSuite</li>
+                        <li><i class="fas fa-check"></i> Dynamics 365</li>
+                        <li><i class="fas fa-check"></i> 더존 ERP</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Integrations -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>전체 연동 시스템</h2>
+                <p>카테고리별로 다양한 연동 옵션을 확인하세요</p>
+            </div>
+
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="filterIntegrations('all')">전체</button>
+                <button class="category-tab" onclick="filterIntegrations('data')">데이터 수집</button>
+                <button class="category-tab" onclick="filterIntegrations('collaboration')">협업 도구</button>
+                <button class="category-tab" onclick="filterIntegrations('erp')">ERP/회계</button>
+                <button class="category-tab" onclick="filterIntegrations('reporting')">보고/분석</button>
+                <button class="category-tab" onclick="filterIntegrations('utility')">유틸리티</button>
+            </div>
+
+            <div class="integrations-grid" id="integrationsGrid">
+                <!-- Data Collection -->
+                <div class="integration-card" data-category="data">
+                    <div class="integration-icon" style="background: #dcfce7; color: #16a34a;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>전력 사용량 API</h3>
+                    <p>한국전력 API 연동으로 실시간 전력 사용량 및 탄소 배출량을 자동 수집합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">에너지</span>
+                        <span class="integration-tag">자동수집</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="data">
+                    <div class="integration-icon" style="background: #dbeafe; color: #2563eb;">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <h3>가스 사용량 API</h3>
+                    <p>도시가스 API 연동으로 가스 사용량 데이터를 자동으로 수집합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">에너지</span>
+                        <span class="integration-tag">Scope 1</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="data">
+                    <div class="integration-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3>수도 사용량 API</h3>
+                    <p>상수도 사업본부 API와 연동하여 용수 사용량을 자동 집계합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">환경</span>
+                        <span class="integration-tag">수자원</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="data">
+                    <div class="integration-icon" style="background: #fce7f3; color: #db2777;">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3>폐기물 관리 시스템</h3>
+                    <p>올바로 시스템과 연동하여 폐기물 발생량 및 재활용률을 추적합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">폐기물</span>
+                        <span class="integration-tag">환경부</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <!-- Collaboration -->
+                <div class="integration-card" data-category="collaboration">
+                    <div class="integration-icon" style="background: #e0e7ff; color: #4f46e5;">
+                        <i class="fab fa-slack"></i>
+                    </div>
+                    <h3>Slack</h3>
+                    <p>ESG 목표 달성률, 알림, 보고서 알림을 Slack 채널로 전송합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">알림</span>
+                        <span class="integration-tag">협업</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="collaboration">
+                    <div class="integration-icon" style="background: #dbeafe; color: #2563eb;">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <h3>Microsoft Teams</h3>
+                    <p>Teams 채널에 ESG 대시보드 및 알림을 연동합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">알림</span>
+                        <span class="integration-tag">협업</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="collaboration">
+                    <div class="integration-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3>카카오톡 알림</h3>
+                    <p>카카오톡 알림톡으로 주요 ESG 이벤트 및 마감 알림을 전송합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">알림</span>
+                        <span class="integration-tag">모바일</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="collaboration">
+                    <div class="integration-icon" style="background: #dcfce7; color: #16a34a;">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>이메일 알림</h3>
+                    <p>정기 보고서, 목표 달성 현황 등을 이메일로 자동 발송합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">알림</span>
+                        <span class="integration-tag">보고서</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <!-- ERP -->
+                <div class="integration-card" data-category="erp">
+                    <div class="integration-icon" style="background: #dbeafe; color: #2563eb;">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>SAP ERP</h3>
+                    <p>SAP S/4HANA와 연동하여 재무 및 운영 데이터를 ESG 지표에 반영합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">ERP</span>
+                        <span class="integration-tag">재무</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="erp">
+                    <div class="integration-icon" style="background: #fee2e2; color: #dc2626;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Oracle NetSuite</h3>
+                    <p>NetSuite ERP와 연동하여 공급망 및 재무 ESG 데이터를 수집합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">ERP</span>
+                        <span class="integration-tag">공급망</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="erp">
+                    <div class="integration-icon" style="background: #e0e7ff; color: #4f46e5;">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>더존 Smart A</h3>
+                    <p>더존 Smart A와 연동하여 국내 회계 데이터를 ESG 보고에 활용합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">회계</span>
+                        <span class="integration-tag">국내</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="erp">
+                    <div class="integration-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>영림원 K-System</h3>
+                    <p>영림원 ERP와 연동하여 중견기업의 ESG 데이터를 자동 수집합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">ERP</span>
+                        <span class="integration-tag">국내</span>
+                    </div>
+                    <div class="integration-status status-coming">
+                        <i class="fas fa-clock"></i> 준비 중
+                    </div>
+                </div>
+
+                <!-- Reporting -->
+                <div class="integration-card" data-category="reporting">
+                    <div class="integration-icon" style="background: #dcfce7; color: #16a34a;">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3>Google Sheets</h3>
+                    <p>ESG 데이터를 Google 스프레드시트로 실시간 동기화합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">스프레드시트</span>
+                        <span class="integration-tag">실시간</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="reporting">
+                    <div class="integration-icon" style="background: #dbeafe; color: #2563eb;">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3>Microsoft Excel</h3>
+                    <p>Excel 온라인과 연동하여 ESG 데이터 분석 및 보고서를 생성합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">스프레드시트</span>
+                        <span class="integration-tag">보고서</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="reporting">
+                    <div class="integration-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Power BI</h3>
+                    <p>Power BI와 연동하여 고급 ESG 대시보드 및 시각화를 구현합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">BI</span>
+                        <span class="integration-tag">시각화</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="reporting">
+                    <div class="integration-icon" style="background: #e0e7ff; color: #4f46e5;">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Tableau</h3>
+                    <p>Tableau와 연동하여 인터랙티브 ESG 분석 대시보드를 구축합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">BI</span>
+                        <span class="integration-tag">분석</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <!-- Utility -->
+                <div class="integration-card" data-category="utility">
+                    <div class="integration-icon" style="background: #fee2e2; color: #dc2626;">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>PDF 보고서 생성</h3>
+                    <p>ESG 보고서를 규정에 맞는 PDF 형식으로 자동 생성합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">보고서</span>
+                        <span class="integration-tag">자동화</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="utility">
+                    <div class="integration-icon" style="background: #dcfce7; color: #16a34a;">
+                        <i class="fas fa-file-csv"></i>
+                    </div>
+                    <h3>CSV/Excel 가져오기</h3>
+                    <p>기존 데이터를 CSV 또는 Excel 파일로 쉽게 가져올 수 있습니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">데이터</span>
+                        <span class="integration-tag">가져오기</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="utility">
+                    <div class="integration-icon" style="background: #dbeafe; color: #2563eb;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Webhook</h3>
+                    <p>커스텀 Webhook을 설정하여 외부 시스템과 실시간 연동합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">개발자</span>
+                        <span class="integration-tag">자동화</span>
+                    </div>
+                    <div class="integration-status status-available">
+                        <i class="fas fa-check-circle"></i> 사용 가능
+                    </div>
+                </div>
+
+                <div class="integration-card" data-category="utility">
+                    <div class="integration-icon" style="background: #fce7f3; color: #db2777;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Zapier</h3>
+                    <p>Zapier를 통해 5,000개 이상의 앱과 ESG 플랫폼을 연결합니다.</p>
+                    <div class="integration-tags">
+                        <span class="integration-tag">자동화</span>
+                        <span class="integration-tag">노코드</span>
+                    </div>
+                    <div class="integration-status status-beta">
+                        <i class="fas fa-flask"></i> 베타
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section class="api-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>개발자를 위한 REST API</h2>
+                <p>강력한 API로 맞춤형 연동을 구현하세요</p>
+            </div>
+            <div class="api-content">
+                <div class="api-info">
+                    <ul class="api-features">
+                        <li>
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>안전한 인증</h4>
+                                <p>OAuth 2.0 및 API 키 기반의 안전한 인증 방식을 지원합니다.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-book"></i>
+                            <div>
+                                <h4>상세한 문서</h4>
+                                <p>OpenAPI 스펙 기반의 상세한 API 문서와 예제를 제공합니다.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-code-branch"></i>
+                            <div>
+                                <h4>SDK 지원</h4>
+                                <p>Python, JavaScript, Java 등 주요 언어의 SDK를 제공합니다.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-headset"></i>
+                            <div>
+                                <h4>기술 지원</h4>
+                                <p>전담 기술 지원팀이 연동 과정을 도와드립니다.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="api-docs.html" class="btn btn-white" style="margin-top: 2rem;">API 문서 보기</a>
+                </div>
+                <div class="code-block">
+                    <pre><span class="code-comment">// ESG 데이터 조회 예시</span>
+<span class="code-keyword">const</span> response = <span class="code-keyword">await</span> fetch(<span class="code-string">'https://api.esgplatform.kr/v1/emissions'</span>, {
+  method: <span class="code-string">'GET'</span>,
+  headers: {
+    <span class="code-string">'Authorization'</span>: <span class="code-string">'Bearer YOUR_API_KEY'</span>,
+    <span class="code-string">'Content-Type'</span>: <span class="code-string">'application/json'</span>
+  }
+});
+
+<span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response.json();
+console.log(data);
+
+<span class="code-comment">// 응답 예시</span>
+{
+  <span class="code-string">"total_emissions"</span>: 1250.5,
+  <span class="code-string">"unit"</span>: <span class="code-string">"tCO2eq"</span>,
+  <span class="code-string">"scope1"</span>: 450.2,
+  <span class="code-string">"scope2"</span>: 800.3,
+  <span class="code-string">"period"</span>: <span class="code-string">"2024-Q4"</span>
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>간편한 연동 프로세스</h2>
+                <p>4단계로 빠르게 시스템을 연동하세요</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>연동 선택</h3>
+                    <p>필요한 연동 시스템을<br>목록에서 선택합니다</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>인증 설정</h3>
+                    <p>안전한 OAuth 인증으로<br>시스템을 연결합니다</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>데이터 매핑</h3>
+                    <p>ESG 지표에 맞게<br>데이터를 매핑합니다</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>자동 수집</h3>
+                    <p>실시간으로 데이터가<br>자동 수집됩니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="partners-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>신뢰할 수 있는 기술 파트너</h2>
+                <p>글로벌 기업들과 함께 안정적인 연동을 제공합니다</p>
+            </div>
+            <div class="partners-logos">
+                <div class="partner-logo">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="partner-logo">
+                    <i class="fab fa-microsoft"></i>
+                </div>
+                <div class="partner-logo">
+                    <i class="fab fa-aws"></i>
+                </div>
+                <div class="partner-logo">
+                    <i class="fab fa-slack"></i>
+                </div>
+                <div class="partner-logo">
+                    <i class="fab fa-salesforce"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>지금 바로 연동을 시작하세요</h2>
+            <p>기존 시스템과 ESG 플랫폼을 연결하여 효율적인 ESG 관리를 경험하세요. 전문 기술팀이 연동을 도와드립니다.</p>
+            <div class="cta-buttons">
+                <a href="demo.html" class="btn btn-white">데모 요청</a>
+                <a href="api-docs.html" class="btn btn-outline-white">API 문서</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-leaf"></i>
+                    ESG Platform
+                </a>
+                <p>중소·중견기업을 위한<br>가장 쉬운 ESG 경영 솔루션</p>
+            </div>
+            <div class="footer-column">
+                <h4>제품</h4>
+                <ul>
+                    <li><a href="features.html">기능</a></li>
+                    <li><a href="pricing.html">요금제</a></li>
+                    <li><a href="integrations.html">연동</a></li>
+                    <li><a href="case-studies.html">고객사례</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>회사</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="careers.html">채용</a></li>
+                    <li><a href="blog.html">블로그</a></li>
+                    <li><a href="contact.html">문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>지원</h4>
+                <ul>
+                    <li><a href="support.html">고객지원</a></li>
+                    <li><a href="api-docs.html">API 문서</a></li>
+                    <li><a href="terms.html">이용약관</a></li>
+                    <li><a href="privacy.html">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ESG Management Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Category Filter
+        function filterIntegrations(category) {
+            const cards = document.querySelectorAll('.integration-card');
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.3s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Fade in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

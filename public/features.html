@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기능 소개 | ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e3a5f', 900: '#0f2744', 950: '#091a2e' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <span class="font-bold text-lg text-gray-900">ESG Insight</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="/features" class="text-emerald-600 font-medium text-sm">기능</a>
+                <a href="/pricing" class="text-gray-600 hover:text-gray-900 text-sm">요금제</a>
+                <a href="/case-studies" class="text-gray-600 hover:text-gray-900 text-sm">고객 사례</a>
+                <a href="/blog" class="text-gray-600 hover:text-gray-900 text-sm">블로그</a>
+                <a href="/login" class="text-gray-600 hover:text-gray-900 text-sm">로그인</a>
+                <a href="/signup" class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition text-sm">무료 시작</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-br from-navy-900 to-navy-950 text-white py-24">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                ESG 경영의 모든 것,<br><span class="gradient-text">하나의 플랫폼</span>에서
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+                복잡한 ESG 관리를 간단하게. AI가 분석하고, 자동으로 보고서를 생성합니다.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/signup" class="px-8 py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-600 transition">
+                    14일 무료 체험
+                </a>
+                <a href="/demo" class="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition">
+                    데모 보기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 1: ESG 자가진단 -->
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-4">핵심 기능</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">AI 기반 ESG 자가진단</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        K-ESG 가이드라인 기반 61개 항목을 AI가 자동 분석합니다. 
+                        복잡한 진단 항목도 쉬운 질문으로 변환하여 누구나 쉽게 답변할 수 있습니다.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">실시간 점수 산출</h4>
+                                <p class="text-gray-600 text-sm">답변과 동시에 ESG 점수가 계산됩니다</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">개선점 자동 도출</h4>
+                                <p class="text-gray-600 text-sm">취약 항목에 대한 구체적 개선 가이드 제공</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">업종별 벤치마크</h4>
+                                <p class="text-gray-600 text-sm">동종 업계 대비 우리 회사의 위치 확인</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-50 to-cyan-50 rounded-3xl p-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-bold text-gray-900">ESG 자가진단</h3>
+                            <span class="text-emerald-600 font-bold">72점</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">환경 (E)</span>
+                                    <span class="font-medium">68점</span>
+                                </div>
+                                <div class="h-2 bg-gray-100 rounded-full">
+                                    <div class="h-2 bg-emerald-500 rounded-full" style="width: 68%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">사회 (S)</span>
+                                    <span class="font-medium">75점</span>
+                                </div>
+                                <div class="h-2 bg-gray-100 rounded-full">
+                                    <div class="h-2 bg-cyan-500 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">지배구조 (G)</span>
+                                    <span class="font-medium">73점</span>
+                                </div>
+                                <div class="h-2 bg-gray-100 rounded-full">
+                                    <div class="h-2 bg-purple-500 rounded-full" style="width: 73%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 2: 탄소 배출 관리 -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <h3 class="font-bold text-gray-900 mb-4">탄소 배출 현황</h3>
+                        <div class="text-3xl font-bold text-gray-900 mb-2">127.5 <span class="text-lg font-normal text-gray-500">tCO₂e</span></div>
+                        <p class="text-sm text-emerald-600 mb-6">전월 대비 -12.3% ↓</p>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-blue-50 rounded-xl p-3 text-center">
+                                <div class="text-lg font-bold text-blue-600">45.2</div>
+                                <div class="text-xs text-gray-500">Scope 1</div>
+                            </div>
+                            <div class="bg-indigo-50 rounded-xl p-3 text-center">
+                                <div class="text-lg font-bold text-indigo-600">62.8</div>
+                                <div class="text-xs text-gray-500">Scope 2</div>
+                            </div>
+                            <div class="bg-purple-50 rounded-xl p-3 text-center">
+                                <div class="text-lg font-bold text-purple-600">19.5</div>
+                                <div class="text-xs text-gray-500">Scope 3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">환경 관리</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">탄소 배출 자동 계산</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        전기, 가스, 유류 사용량만 입력하면 Scope 1, 2, 3 탄소 배출량을 
+                        자동으로 계산합니다. 국가 공인 배출계수를 적용합니다.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">GHG 프로토콜 준수</h4>
+                                <p class="text-gray-600 text-sm">국제 표준에 맞는 정확한 산정</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">감축 목표 설정</h4>
+                                <p class="text-gray-600 text-sm">SBTi 기준 감축 경로 자동 생성</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">트렌드 분석</h4>
+                                <p class="text-gray-600 text-sm">월별/연도별 배출량 변화 추적</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 3: AI 보고서 생성 -->
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">AI 보고서</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">클릭 한 번으로 ESG 보고서 생성</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        K-ESG, GRI, TCFD, SASB 등 주요 프레임워크에 맞는 보고서를 
+                        AI가 자동으로 생성합니다. 2주 걸리던 작업이 10분으로 단축됩니다.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">다양한 포맷 지원</h4>
+                                <p class="text-gray-600 text-sm">PDF, Word, Excel, PowerPoint 내보내기</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">커스텀 템플릿</h4>
+                                <p class="text-gray-600 text-sm">회사 브랜딩에 맞는 보고서 디자인</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">버전 관리</h4>
+                                <p class="text-gray-600 text-sm">보고서 히스토리 및 변경 이력 추적</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">ESG 보고서 생성</h4>
+                                <p class="text-sm text-gray-500">2024년 지속가능경영보고서</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center gap-2 text-sm">
+                                <input type="checkbox" checked class="w-4 h-4 text-purple-600 rounded">
+                                <span class="text-gray-700">K-ESG 자가진단 결과 포함</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <input type="checkbox" checked class="w-4 h-4 text-purple-600 rounded">
+                                <span class="text-gray-700">탄소 배출 현황 포함</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <input type="checkbox" checked class="w-4 h-4 text-purple-600 rounded">
+                                <span class="text-gray-700">GRI 인덱스 생성</span>
+                            </div>
+                        </div>
+                        <button class="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl">
+                            보고서 생성하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Features Grid -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">더 많은 기능</h2>
+                <p class="text-gray-600">ESG 경영에 필요한 모든 도구를 제공합니다</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">대시보드</h3>
+                    <p class="text-gray-600 text-sm">ESG 현황을 한눈에 파악할 수 있는 실시간 대시보드를 제공합니다.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">리스크 관리</h3>
+                    <p class="text-gray-600 text-sm">ESG 관련 리스크를 사전에 식별하고 대응 방안을 제시합니다.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">목표 관리</h3>
+                    <p class="text-gray-600 text-sm">ESG 목표 설정부터 달성 현황까지 체계적으로 관리합니다.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">협업</h3>
+                    <p class="text-gray-600 text-sm">팀원들과 함께 ESG 데이터를 수집하고 관리할 수 있습니다.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">알림</h3>
+                    <p class="text-gray-600 text-sm">규제 변경, 마감일 등 중요한 ESG 일정을 놓치지 않도록 알려드립니다.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">API 연동</h3>
+                    <p class="text-gray-600 text-sm">기존 시스템과 손쉽게 연동하여 데이터를 자동으로 수집합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 bg-gradient-to-br from-navy-900 to-navy-950">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">지금 바로 시작하세요</h2>
+            <p class="text-gray-300 mb-8">14일 무료 체험으로 ESG Insight의 모든 기능을 경험해보세요</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/signup" class="px-8 py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-600 transition">
+                    무료로 시작하기
+                </a>
+                <a href="/pricing" class="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition">
+                    요금제 보기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-950 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm">
+            <p>© 2024 ESG Insight. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

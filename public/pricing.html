@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Insight | 구독 결제</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .plan-card.selected { border-color: #10b981; background-color: #f0fdf4; }
+        .payment-method.selected { border-color: #10b981; background-color: #f0fdf4; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <span class="font-bold text-lg text-gray-900">ESG Insight</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-gray-600 hover:text-gray-900 text-sm">← 홈으로</a>
+                <span class="text-sm text-gray-500">🔒 안전한 결제</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- 왼쪽: 요금제 선택 & 정보 입력 -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Step 1: 요금제 선택 -->
+                <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-bold">1</span>
+                        요금제 선택
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="plan-card border-2 border-gray-200 rounded-xl p-5 cursor-pointer hover:border-gray-300 transition-all" data-plan="starter" data-price="99000" onclick="selectPlan(this)">
+                            <h3 class="font-bold text-gray-900 mb-1">Starter</h3>
+                            <p class="text-sm text-gray-500 mb-3">ESG 관리 시작</p>
+                            <p class="text-2xl font-bold text-gray-900">₩99,000<span class="text-sm font-normal text-gray-500">/월</span></p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 기본 ESG 분석</li>
+                                <li>✓ 월 10회 AI 분석</li>
+                            </ul>
+                        </div>
+
+                        <div class="plan-card selected border-2 border-emerald-500 rounded-xl p-5 cursor-pointer transition-all relative" data-plan="professional" data-price="299000" onclick="selectPlan(this)">
+                            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">추천</span>
+                            <h3 class="font-bold text-gray-900 mb-1">Professional</h3>
+                            <p class="text-sm text-gray-500 mb-3">본격적인 ESG 관리</p>
+                            <p class="text-2xl font-bold gradient-text">₩299,000<span class="text-sm font-normal text-gray-500">/월</span></p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 무제한 AI 분석</li>
+                                <li>✓ AI 컨설턴트</li>
+                                <li>✓ K-ESG/GRI/TCFD</li>
+                            </ul>
+                        </div>
+
+                        <div class="plan-card border-2 border-gray-200 rounded-xl p-5 cursor-pointer hover:border-gray-300 transition-all" data-plan="enterprise" data-price="599000" onclick="selectPlan(this)">
+                            <h3 class="font-bold text-gray-900 mb-1">Enterprise</h3>
+                            <p class="text-sm text-gray-500 mb-3">대규모 조직</p>
+                            <p class="text-2xl font-bold text-gray-900">₩599,000<span class="text-sm font-normal text-gray-500">/월</span></p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 전담 컨설턴트</li>
+                                <li>✓ API 연동</li>
+                                <li>✓ SLA 보장</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2: 결제 정보 -->
+                <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-bold">2</span>
+                        결제 정보
+                    </h2>
+
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">회사명 <span class="text-red-500">*</span></label>
+                            <input type="text" id="companyName" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500" placeholder="회사명">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">담당자명 <span class="text-red-500">*</span></label>
+                            <input type="text" id="customerName" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500" placeholder="홍길동">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">이메일 <span class="text-red-500">*</span></label>
+                            <input type="email" id="customerEmail" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500" placeholder="name@company.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">연락처 <span class="text-red-500">*</span></label>
+                            <input type="tel" id="customerPhone" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500" placeholder="010-1234-5678">
+                        </div>
+                    </div>
+
+                    <!-- 결제 수단 -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">결제 수단</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="payment-method selected border-2 border-emerald-500 rounded-xl p-4 cursor-pointer text-center" data-method="카드" onclick="selectPaymentMethod(this)">
+                                <span class="text-2xl">💳</span>
+                                <p class="text-sm font-medium text-gray-700 mt-1">신용카드</p>
+                            </div>
+                            <div class="payment-method border-2 border-gray-200 rounded-xl p-4 cursor-pointer text-center hover:border-gray-300" data-method="계좌이체" onclick="selectPaymentMethod(this)">
+                                <span class="text-2xl">🏦</span>
+                                <p class="text-sm font-medium text-gray-700 mt-1">계좌이체</p>
+                            </div>
+                            <div class="payment-method border-2 border-gray-200 rounded-xl p-4 cursor-pointer text-center hover:border-gray-300" data-method="가상계좌" onclick="selectPaymentMethod(this)">
+                                <span class="text-2xl">📋</span>
+                                <p class="text-sm font-medium text-gray-700 mt-1">가상계좌</p>
+                            </div>
+                            <div class="payment-method border-2 border-gray-200 rounded-xl p-4 cursor-pointer text-center hover:border-gray-300" data-method="휴대폰" onclick="selectPaymentMethod(this)">
+                                <span class="text-2xl">📱</span>
+                                <p class="text-sm font-medium text-gray-700 mt-1">휴대폰</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 3: 약관 동의 -->
+                <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-bold">3</span>
+                        약관 동의
+                    </h2>
+
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-gray-50">
+                            <input type="checkbox" id="agreeAll" onchange="toggleAllAgree()" class="w-5 h-5 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="font-medium text-gray-900">전체 동의</span>
+                        </label>
+                        <hr>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 pl-3">
+                            <input type="checkbox" class="agree-item w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="text-sm text-gray-600">(필수) 이용약관 동의</span>
+                            <a href="#" class="text-sm text-emerald-600 ml-auto">보기</a>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 pl-3">
+                            <input type="checkbox" class="agree-item w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="text-sm text-gray-600">(필수) 개인정보 수집 및 이용 동의</span>
+                            <a href="#" class="text-sm text-emerald-600 ml-auto">보기</a>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 pl-3">
+                            <input type="checkbox" class="agree-item w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="text-sm text-gray-600">(필수) 정기결제 동의</span>
+                            <a href="#" class="text-sm text-emerald-600 ml-auto">보기</a>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 pl-3">
+                            <input type="checkbox" class="agree-item optional w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="text-sm text-gray-600">(선택) 마케팅 정보 수신 동의</span>
+                        </label>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 오른쪽: 결제 요약 -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 sticky top-24">
+                    <h3 class="font-bold text-gray-900 mb-6">결제 요약</h3>
+
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">요금제</span>
+                            <span class="font-medium text-gray-900" id="summaryPlan">Professional</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">월 이용료</span>
+                            <span class="font-medium text-gray-900" id="summaryPrice">₩299,000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">VAT (10%)</span>
+                            <span class="font-medium text-gray-900" id="summaryVat">₩29,900</span>
+                        </div>
+                        <hr>
+                        <div class="flex justify-between">
+                            <span class="font-bold text-gray-900">총 결제 금액</span>
+                            <span class="font-bold text-xl gradient-text" id="summaryTotal">₩328,900</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 rounded-xl p-4 mb-6">
+                        <p class="text-sm text-emerald-800">
+                            💡 <strong>14일 무료 체험</strong> 후 자동으로 정기 결제가 시작됩니다. 언제든 취소 가능합니다.
+                        </p>
+                    </div>
+
+                    <button onclick="processPayment()" id="payButton" class="w-full py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+                        ₩328,900 결제하기
+                    </button>
+
+                    <p class="text-center text-gray-500 text-xs mt-4">
+                        🔒 결제 정보는 SSL 암호화로 안전하게 보호됩니다
+                    </p>
+
+                    <div class="flex items-center justify-center gap-4 mt-6 pt-6 border-t border-gray-200">
+                        <img src="https://static.toss.im/icons/png/4x/icon-toss-logo.png" alt="Toss" class="h-6 opacity-50">
+                        <span class="text-xs text-gray-400">토스페이먼츠로 안전하게 결제</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 토스페이먼츠 초기화 (서버에서 클라이언트 키를 받아올 수도 있음)
+        let tossPayments = null;
+        let clientKey = null;
+
+        let selectedPlan = {
+            name: 'Professional',
+            code: 'professional',
+            price: 299000
+        };
+
+        let selectedMethod = '카드';
+
+        // 요금제 선택
+        function selectPlan(element) {
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('selected', 'border-emerald-500');
+                card.classList.add('border-gray-200');
+            });
+            element.classList.add('selected', 'border-emerald-500');
+            element.classList.remove('border-gray-200');
+
+            selectedPlan.name = element.querySelector('h3').textContent;
+            selectedPlan.code = element.dataset.plan;
+            selectedPlan.price = parseInt(element.dataset.price);
+
+            updateSummary();
+        }
+
+        // 결제 수단 선택
+        function selectPaymentMethod(element) {
+            document.querySelectorAll('.payment-method').forEach(m => {
+                m.classList.remove('selected', 'border-emerald-500');
+                m.classList.add('border-gray-200');
+            });
+            element.classList.add('selected', 'border-emerald-500');
+            element.classList.remove('border-gray-200');
+
+            selectedMethod = element.dataset.method;
+        }
+
+        // 결제 요약 업데이트
+        function updateSummary() {
+            const vat = Math.round(selectedPlan.price * 0.1);
+            const total = selectedPlan.price + vat;
+
+            document.getElementById('summaryPlan').textContent = selectedPlan.name;
+            document.getElementById('summaryPrice').textContent = '₩' + selectedPlan.price.toLocaleString();
+            document.getElementById('summaryVat').textContent = '₩' + vat.toLocaleString();
+            document.getElementById('summaryTotal').textContent = '₩' + total.toLocaleString();
+            document.getElementById('payButton').textContent = '₩' + total.toLocaleString() + ' 결제하기';
+        }
+
+        // 전체 동의
+        function toggleAllAgree() {
+            const isChecked = document.getElementById('agreeAll').checked;
+            document.querySelectorAll('.agree-item').forEach(item => {
+                item.checked = isChecked;
+            });
+        }
+
+        // 필수 약관 체크 확인
+        function checkRequiredAgreements() {
+            const requiredItems = document.querySelectorAll('.agree-item:not(.optional)');
+            return Array.from(requiredItems).every(item => item.checked);
+        }
+
+        // 폼 유효성 검사
+        function validateForm() {
+            const companyName = document.getElementById('companyName').value.trim();
+            const customerName = document.getElementById('customerName').value.trim();
+            const customerEmail = document.getElementById('customerEmail').value.trim();
+            const customerPhone = document.getElementById('customerPhone').value.trim();
+
+            if (!companyName) {
+                alert('회사명을 입력해주세요.');
+                return false;
+            }
+            if (!customerName) {
+                alert('담당자명을 입력해주세요.');
+                return false;
+            }
+            if (!customerEmail || !customerEmail.includes('@')) {
+                alert('유효한 이메일을 입력해주세요.');
+                return false;
+            }
+            if (!customerPhone) {
+                alert('연락처를 입력해주세요.');
+                return false;
+            }
+            if (!checkRequiredAgreements()) {
+                alert('필수 약관에 동의해주세요.');
+                return false;
+            }
+            return true;
+        }
+
+        // 결제 처리
+        async function processPayment() {
+            if (!validateForm()) return;
+
+            const payButton = document.getElementById('payButton');
+            payButton.disabled = true;
+            payButton.textContent = '결제 준비 중...';
+
+            try {
+                // 1. 서버에서 결제 준비 (주문 ID 생성)
+                const prepareResponse = await fetch('/api/payments/prepare', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: 'user_' + Date.now(),  // 실제로는 로그인한 사용자 ID
+                        plan: selectedPlan.code
+                    })
+                });
+
+                const prepareData = await prepareResponse.json();
+
+                if (!prepareData.success) {
+                    throw new Error(prepareData.error || '결제 준비 실패');
+                }
+
+                // 2. 토스페이먼츠 초기화 (서버에서 받은 클라이언트 키 사용)
+                if (!tossPayments) {
+                    tossPayments = TossPayments(prepareData.clientKey);
+                }
+
+                // 3. 결제창 호출
+                const customerName = document.getElementById('customerName').value;
+                const customerEmail = document.getElementById('customerEmail').value;
+                const customerPhone = document.getElementById('customerPhone').value.replace(/-/g, '');
+
+                await tossPayments.requestPayment(selectedMethod, {
+                    amount: prepareData.amount,
+                    orderId: prepareData.orderId,
+                    orderName: prepareData.orderName,
+                    customerName: customerName,
+                    customerEmail: customerEmail,
+                    customerMobilePhone: customerPhone,
+                    successUrl: window.location.origin + '/payment/success',
+                    failUrl: window.location.origin + '/payment/fail',
+                });
+
+            } catch (error) {
+                console.error('결제 오류:', error);
+                
+                if (error.code === 'USER_CANCEL') {
+                    alert('결제가 취소되었습니다.');
+                } else {
+                    alert('결제 오류: ' + (error.message || '알 수 없는 오류'));
+                }
+
+                payButton.disabled = false;
+                updateSummary();
+            }
+        }
+
+        // 초기화
+        updateSummary();
+        
+        // URL 파라미터에서 요금제 자동 선택
+        const urlParams = new URLSearchParams(window.location.search);
+        const planParam = urlParams.get('plan');
+        if (planParam) {
+            const planCard = document.querySelector(`.plan-card[data-plan="${planParam}"]`);
+            if (planCard) {
+                selectPlan(planCard);
+            }
+        }
+    </script>
+</body>
+</html>

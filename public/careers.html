@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채용 | ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e3a5f', 900: '#0f2744', 950: '#091a2e' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <span class="font-bold text-lg text-gray-900">ESG Insight</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="/about" class="text-gray-600 hover:text-gray-900 text-sm">회사 소개</a>
+                <a href="/blog" class="text-gray-600 hover:text-gray-900 text-sm">블로그</a>
+                <a href="/" class="text-gray-600 hover:text-gray-900 text-sm">← 홈으로</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-br from-navy-900 to-navy-950 text-white py-24">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                지속가능한 미래를<br><span class="gradient-text">함께 만들어갈</span> 동료를 찾습니다
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+                ESG Insight는 중소기업의 ESG 경영을 돕는 AI 플랫폼입니다.
+                의미 있는 일에 도전하고 싶은 분들을 기다립니다.
+            </p>
+            <a href="#positions" class="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-600 transition">
+                채용 공고 보기
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Why Join Us -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">왜 ESG Insight인가요?</h2>
+            <p class="text-gray-500 text-center mb-12">우리가 일하는 방식과 문화를 소개합니다</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">의미 있는 일</h3>
+                    <p class="text-gray-600">지구와 사회를 위한 지속가능한 비즈니스를 만들어갑니다. 매일의 업무가 실제 변화를 만들어냅니다.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                    <div class="w-14 h-14 bg-cyan-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">빠른 성장</h3>
+                    <p class="text-gray-600">급성장하는 ESG 시장에서 커리어를 쌓으세요. 초기 멤버로서 회사와 함께 성장할 기회입니다.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">최신 기술</h3>
+                    <p class="text-gray-600">최첨단 AI/ML 기술을 실제 제품에 적용합니다. 기술적 도전과 성장의 기회가 풍부합니다.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                    <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">유연한 근무</h3>
+                    <p class="text-gray-600">원격 근무, 유연 출퇴근제를 지원합니다. 일과 삶의 균형을 추구합니다.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                    <div class="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">수평적 문화</h3>
+                    <p class="text-gray-600">직급 대신 이름을 부르고, 누구나 자유롭게 의견을 제시합니다. 최고의 아이디어가 이깁니다.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">성장 지원</h3>
+                    <p class="text-gray-600">연간 교육비 300만원, 도서 무제한 지원. 컨퍼런스 참가비도 회사가 부담합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">복리후생</h2>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">💰</div>
+                    <h4 class="font-semibold text-gray-900">스톡옵션</h4>
+                    <p class="text-sm text-gray-500">전 직원 부여</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">🏖️</div>
+                    <h4 class="font-semibold text-gray-900">무제한 휴가</h4>
+                    <p class="text-sm text-gray-500">자율적 사용</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">🏠</div>
+                    <h4 class="font-semibold text-gray-900">원격 근무</h4>
+                    <p class="text-sm text-gray-500">주 3일 재택</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">💻</div>
+                    <h4 class="font-semibold text-gray-900">장비 지원</h4>
+                    <p class="text-sm text-gray-500">맥북 프로 제공</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">🍽️</div>
+                    <h4 class="font-semibold text-gray-900">식사 제공</h4>
+                    <p class="text-sm text-gray-500">점심 + 저녁</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">🏥</div>
+                    <h4 class="font-semibold text-gray-900">건강검진</h4>
+                    <p class="text-sm text-gray-500">연 1회 종합검진</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">📚</div>
+                    <h4 class="font-semibold text-gray-900">교육비</h4>
+                    <p class="text-sm text-gray-500">연 300만원</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">🎉</div>
+                    <h4 class="font-semibold text-gray-900">경조사</h4>
+                    <p class="text-sm text-gray-500">휴가 + 지원금</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section id="positions" class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">채용 중인 포지션</h2>
+            <p class="text-gray-500 text-center mb-12">함께할 팀원을 찾고 있습니다</p>
+
+            <div class="space-y-4">
+                <!-- Position 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-lg transition cursor-pointer" onclick="toggleJob(this)">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <h3 class="text-lg font-bold text-gray-900">풀스택 개발자</h3>
+                                <span class="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded">적극 채용</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span>개발팀</span>
+                                <span>•</span>
+                                <span>정규직</span>
+                                <span>•</span>
+                                <span>서울 강남</span>
+                            </div>
+                        </div>
+                        <svg class="w-6 h-6 text-gray-400 transition-transform job-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="job-detail hidden mt-4 pt-4 border-t border-gray-100">
+                        <p class="text-gray-600 mb-4">ESG Insight의 핵심 플랫폼을 개발하고 개선하는 업무를 담당합니다.</p>
+                        <h4 class="font-semibold text-gray-900 mb-2">자격 요건</h4>
+                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                            <li>• React, Node.js 실무 경력 3년 이상</li>
+                            <li>• PostgreSQL, MongoDB 등 DB 설계 경험</li>
+                            <li>• RESTful API 설계 및 개발 경험</li>
+                        </ul>
+                        <h4 class="font-semibold text-gray-900 mb-2">우대 사항</h4>
+                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                            <li>• TypeScript 경험</li>
+                            <li>• AWS/GCP 클라우드 인프라 경험</li>
+                            <li>• ESG 또는 지속가능성에 대한 관심</li>
+                        </ul>
+                        <a href="/cdn-cgi/l/email-protection#9be9fef8e9eef2efdbfee8fcf2f5e8f2fcf3efb5f8f4b5f0e9a4e8eef9f1fef8efa6c076091b77113f761806bb712b07702b0777050bc6bb773c1b77000b" class="inline-block px-6 py-2 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition">지원하기</a>
+                    </div>
+                </div>
+
+                <!-- Position 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-lg transition cursor-pointer" onclick="toggleJob(this)">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <h3 class="text-lg font-bold text-gray-900">AI/ML 엔지니어</h3>
+                                <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded">신규</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span>AI팀</span>
+                                <span>•</span>
+                                <span>정규직</span>
+                                <span>•</span>
+                                <span>서울 강남 / 원격</span>
+                            </div>
+                        </div>
+                        <svg class="w-6 h-6 text-gray-400 transition-transform job-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="job-detail hidden mt-4 pt-4 border-t border-gray-100">
+                        <p class="text-gray-600 mb-4">ESG 분석 및 보고서 자동 생성을 위한 AI 모델을 개발합니다.</p>
+                        <h4 class="font-semibold text-gray-900 mb-2">자격 요건</h4>
+                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                            <li>• ML/DL 모델 개발 경력 2년 이상</li>
+                            <li>• Python, PyTorch 또는 TensorFlow 숙련</li>
+                            <li>• NLP, LLM 관련 프로젝트 경험</li>
+                        </ul>
+                        <a href="/cdn-cgi/l/email-protection#1f6d7a7c6d6a766b5f7a6c7876716c7678776b317c7031746d206c6a7d757a7c6b22445e563052533ff3888bf3b89ff49497f389ab423ff3b89ff3848f" class="inline-block px-6 py-2 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition">지원하기</a>
+                    </div>
+                </div>
+
+                <!-- Position 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-lg transition cursor-pointer" onclick="toggleJob(this)">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <h3 class="text-lg font-bold text-gray-900">ESG 컨설턴트</h3>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span>컨설팅팀</span>
+                                <span>•</span>
+                                <span>정규직</span>
+                                <span>•</span>
+                                <span>서울 강남</span>
+                            </div>
+                        </div>
+                        <svg class="w-6 h-6 text-gray-400 transition-transform job-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="job-detail hidden mt-4 pt-4 border-t border-gray-100">
+                        <p class="text-gray-600 mb-4">고객사의 ESG 경영 전략 수립 및 실행을 지원합니다.</p>
+                        <h4 class="font-semibold text-gray-900 mb-2">자격 요건</h4>
+                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                            <li>• ESG, 지속가능경영 컨설팅 경력 3년 이상</li>
+                            <li>• K-ESG, GRI, TCFD 등 프레임워크 이해</li>
+                            <li>• 우수한 문서 작성 및 프레젠테이션 능력</li>
+                        </ul>
+                        <a href="/cdn-cgi/l/email-protection#a6d4c3c5d4d3cfd2e6c3d5c1cfc8d5cfc1ced288c5c988cdd499d5d3c4ccc3c5d29bfde3f5e1864a1d0e4a22024b22124b2c1efb864a01264a3d36" class="inline-block px-6 py-2 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition">지원하기</a>
+                    </div>
+                </div>
+
+                <!-- Position 4 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-lg transition cursor-pointer" onclick="toggleJob(this)">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <h3 class="text-lg font-bold text-gray-900">프로덕트 디자이너</h3>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span>디자인팀</span>
+                                <span>•</span>
+                                <span>정규직</span>
+                                <span>•</span>
+                                <span>서울 강남 / 원격</span>
+                            </div>
+                        </div>
+                        <svg class="w-6 h-6 text-gray-400 transition-transform job-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="job-detail hidden mt-4 pt-4 border-t border-gray-100">
+                        <p class="text-gray-600 mb-4">사용자 경험을 설계하고 브랜드 아이덴티티를 구축합니다.</p>
+                        <h4 class="font-semibold text-gray-900 mb-2">자격 요건</h4>
+                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                            <li>• UI/UX 디자인 경력 3년 이상</li>
+                            <li>• Figma 숙련자</li>
+                            <li>• SaaS 또는 B2B 서비스 디자인 경험</li>
+                        </ul>
+                        <a href="/cdn-cgi/l/email-protection#dcaeb9bfaea9b5a89cb9afbbb5b2afb5bbb4a8f2bfb3f2b7aee3afa9beb6b9bfa8e187314858377d40375149315664fc37484830424c30416837585481fc307b5c30474c" class="inline-block px-6 py-2 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition">지원하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-gray-600 mb-4">원하는 포지션이 없으신가요?</p>
+                <a href="/cdn-cgi/l/email-protection#dcaeb9bfaea9b5a89cb9afbbb5b2afb5bbb4a8f2bfb3f2b7ae" class="text-emerald-600 font-semibold hover:underline">오픈 포지션으로 지원하기 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-950 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400 mb-4">채용 관련 문의</p>
+            <a href="/cdn-cgi/l/email-protection#c1b3a4a2b3b4a8b581a4b2a6a8afb2a8a6a9b5efa2aeefaab3" class="text-xl font-semibold hover:text-emerald-400 transition"><span class="__cf_email_

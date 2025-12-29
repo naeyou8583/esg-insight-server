@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이메일 인증 | ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 50%, #0f2744 100%);
+        }
+        .checkmark {
+            animation: checkmark 0.5s ease-in-out;
+        }
+        @keyframes checkmark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="w-full max-w-md relative z-10">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <a href="/" class="inline-flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <span class="font-bold text-2xl text-white">ESG Insight</span>
+            </a>
+        </div>
+
+        <!-- Verification Card -->
+        <div class="bg-white rounded-3xl shadow-2xl p-8">
+            <!-- Loading State -->
+            <div id="loadingView" class="text-center">
+                <div class="w-20 h-20 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin mx-auto mb-6"></div>
+                <h2 class="text-xl font-bold text-gray-900 mb-2">이메일 인증 중...</h2>
+                <p class="text-gray-500">잠시만 기다려주세요</p>
+            </div>
+
+            <!-- Success State -->
+            <div id="successView" class="hidden text-center">
+                <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 checkmark">
+                    <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">이메일 인증 완료!</h2>
+                <p class="text-gray-500 mb-8">
+                    회원가입이 완료되었습니다.<br>
+                    이제 ESG Insight의 모든 기능을 이용할 수 있습니다.
+                </p>
+                
+                <div class="bg-emerald-50 rounded-xl p-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-semibold text-emerald-800">14일 무료 체험 시작!</p>
+                            <p class="text-sm text-emerald-600">Professional 플랜의 모든 기능을 체험하세요</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/dashboard" class="block w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-cyan-600 transition text-center shadow-lg shadow-emerald-500/25">
+                    대시보드로 이동
+                </a>
+                
+                <a href="/login" class="block mt-4 text-gray-500 hover:text-emerald-600 transition">
+                    또는 로그인 페이지로 이동
+                </a>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorView" class="hidden text-center">
+                <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">인증 실패</h2>
+                <p class="text-gray-500 mb-8">
+                    인증 링크가 만료되었거나 유효하지 않습니다.<br>
+                    새로운 인증 메일을 요청해주세요.
+                </p>
+                
+                <button onclick="resendEmail()" id="resendBtn" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-cyan-600 transition">
+                    인증 메일 재발송
+                </button>
+                
+                <p id="resendSuccess" class="hidden mt-4 text-emerald-600 text-sm">
+                    ✓ 인증 메일이 재발송되었습니다. 이메일을 확인해주세요.
+                </p>
+            </div>
+
+            <!-- Already Verified -->
+            <div id="alreadyVerifiedView" class="hidden text-center">
+                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">이미 인증되었습니다</h2>
+                <p class="text-gray-500 mb-8">
+                    이 이메일은 이미 인증이 완료되었습니다.<br>
+                    로그인하여 서비스를 이용해주세요.
+                </p>
+                
+                <a href="/login" class="block w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-cyan-600 transition text-center">
+                    로그인하기
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-6 text-center text-gray-400 text-sm">
+            문제가 있으신가요? <a href="/support" class="text-emerald-400 hover:text-emerald-300">고객센터</a>로 문의해주세요.
+        </p>
+    </div>
+
+    <script>
+        // Simulate verification process
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const status = urlParams.get('status'); // For demo purposes
+
+        setTimeout(() => {
+            document.getElementById('loadingView').classList.add('hidden');
+            
+            if (status === 'error') {
+                document.getElementById('errorView').classList.remove('hidden');
+            } else if (status === 'already') {
+                document.getElementById('alreadyVerifiedView').classList.remove('hidden');
+            } else {
+                // Default: success
+                document.getElementById('successView').classList.remove('hidden');
+            }
+        }, 2000);
+
+        function resendEmail() {
+            const btn = document.getElementById('resendBtn');
+            btn.innerHTML = '<svg class="animate-spin h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '인증 메일 재발송';
+                btn.disabled = false;
+                document.getElementById('resendSuccess').classList.remove('hidden');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

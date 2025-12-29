@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 소개 | ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1e3a5f',
+                            900: '#0f2744',
+                            950: '#091a2e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <span class="font-bold text-lg text-gray-900">ESG Insight</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="/" class="text-gray-600 hover:text-gray-900 text-sm">홈</a>
+                <a href="/pricing" class="text-gray-600 hover:text-gray-900 text-sm">요금제</a>
+                <a href="/blog" class="text-gray-600 hover:text-gray-900 text-sm">블로그</a>
+                <a href="/support" class="text-gray-600 hover:text-gray-900 text-sm">고객센터</a>
+                <a href="/login" class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition text-sm">로그인</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-navy-900 to-navy-950 text-white py-24">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                중소기업의 <span class="gradient-text">지속가능한 성장</span>을<br>함께 만들어갑니다
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                ESG Insight는 AI 기술을 활용하여 중소기업도 쉽게 ESG 경영을 실천할 수 있도록 돕는 플랫폼입니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Mission -->
+                <div class="bg-gradient-to-br from-emerald-50 to-cyan-50 rounded-3xl p-10">
+                    <div class="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">미션</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        모든 기업이 규모와 관계없이 ESG 경영을 실천할 수 있도록, 
+                        접근성 높은 AI 기반 솔루션을 제공합니다. 
+                        복잡한 ESG 진단과 보고서 작성을 자동화하여 
+                        기업이 본질적인 경영 활동에 집중할 수 있게 합니다.
+                    </p>
+                </div>
+
+                <!-- Vision -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-10">
+                    <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">비전</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        2030년까지 국내 중소기업 10만 개사의 ESG 경영 전환을 지원하여,
+                        대한민국이 지속가능한 비즈니스의 글로벌 리더가 되도록 기여합니다.
+                        환경, 사회, 지배구조 모든 영역에서 긍정적 변화를 이끕니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">핵심 가치</h2>
+            <p class="text-gray-500 text-center mb-12">ESG Insight가 추구하는 가치입니다</p>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">신뢰</h3>
+                    <p class="text-gray-600 text-sm">정확한 데이터와 투명한 프로세스로 고객의 신뢰를 얻습니다</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">혁신</h3>
+                    <p class="text-gray-600 text-sm">최신 AI 기술을 활용하여 ESG 경영의 새로운 표준을 만듭니다</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">협력</h3>
+                    <p class="text-gray-600 text-sm">고객, 파트너, 사회와 함께 지속가능한 미래를 만들어갑니다</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">지속가능성</h3>
+                    <p class="text-gray-600 text-sm">환경과 사회를 생각하는 책임있는 비즈니스를 실천합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-20 bg-gradient-to-br from-emerald-500 to-cyan-500 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold mb-2">1,000+</div>
+                    <p class="text-white/80">도입 기업</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">5,000+</div>
+                    <p class="text-white/80">생성된 보고서</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">98%</div>
+                    <p class="text-white/80">고객 만족도</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">70%</div>
+                    <p class="text-white/80">업무 시간 절감</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">함께 성장할 준비가 되셨나요?</h2>
+            <p class="text-gray-600 mb-8">ESG Insight와 함께 지속가능한 미래를 만들어가세요</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/signup" class="px-8 py-4 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition">
+                    무료로 시작하기
+                </a>
+                <a href="/support" class="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:border-emerald-500 hover:text-emerald-600 transition">
+                    문의하기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-950 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <span class="font-bold">ESG Insight</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">AI 기반 중소기업<br>ESG 자가진단 플랫폼</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">서비스</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="/pricing" class="hover:text-white">요금제</a></li>
+                        <li><a href="/dashboard" class="hover:text-white">대시보드</a></li>
+                        <li><a href="/blog" class="hover:text-white">블로그</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">회사</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="/about" class="hover:text-white">회사 소개</a></li>
+                        <li><a href="/notices" class="hover:text-white">공지사항</a></li>
+                        <li><a href="/support" class="hover:text-white">고객센터</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">법적 고지</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="/terms" class="hover:text-white">이용약관</a></li>
+                        <li><a href="/privacy" class="hover:text-white">개인정보처리방침</a></li>
+                        <li><a href="/refund" class="hover:text-white">환불 정책</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>© 2024 ESG Insight. All rights reserved.</p>
+                <p class="mt-2">서울특별시 강남구 테헤란로 123, ESG빌딩 10층 | 사업자등록번호: 123-45-67890</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

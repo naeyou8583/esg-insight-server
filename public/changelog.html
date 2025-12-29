@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업데이트 내역 - ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #ecfdf5 0%, #cffafe 100%); }
+        .gradient-text { background: linear-gradient(135deg, #059669 0%, #0891b2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .timeline-line { background: linear-gradient(180deg, #059669 0%, #0891b2 100%); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="/" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-leaf text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">ESG Insight</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-emerald-600">홈</a>
+                    <a href="/features" class="text-gray-600 hover:text-emerald-600">기능</a>
+                    <a href="/pricing" class="text-gray-600 hover:text-emerald-600">요금제</a>
+                    <a href="/blog" class="text-gray-600 hover:text-emerald-600">블로그</a>
+                    <a href="/login" class="text-gray-600 hover:text-emerald-600">로그인</a>
+                    <a href="/demo" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-4 py-2 rounded-lg hover:shadow-lg transition">데모 신청</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center bg-white rounded-full px-4 py-2 shadow-sm mb-6">
+                <i class="fas fa-code-branch text-emerald-500 mr-2"></i>
+                <span class="text-sm font-medium text-gray-700">Changelog</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                <span class="gradient-text">업데이트</span> 내역
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                ESG Insight의 새로운 기능, 개선사항, 버그 수정 내역을 확인하세요.
+                지속적으로 더 나은 서비스를 제공하기 위해 노력하고 있습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter -->
+    <section class="py-8 bg-white border-b">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap gap-3 justify-center">
+                <button onclick="filterChangelog('all')" class="filter-btn active px-4 py-2 rounded-full bg-emerald-500 text-white text-sm font-medium transition" data-filter="all">
+                    전체
+                </button>
+                <button onclick="filterChangelog('feature')" class="filter-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition" data-filter="feature">
+                    <i class="fas fa-star mr-1 text-emerald-500"></i>새 기능
+                </button>
+                <button onclick="filterChangelog('improvement')" class="filter-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition" data-filter="improvement">
+                    <i class="fas fa-arrow-up mr-1 text-blue-500"></i>개선
+                </button>
+                <button onclick="filterChangelog('fix')" class="filter-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition" data-filter="fix">
+                    <i class="fas fa-bug mr-1 text-red-500"></i>버그 수정
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Changelog Timeline -->
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-8 top-0 bottom-0 w-0.5 timeline-line hidden md:block"></div>
+
+                <!-- Version 2.5.0 -->
+                <div class="changelog-entry mb-12 relative" data-types="feature,improvement">
+                    <div class="md:pl-20">
+                        <div class="absolute left-0 top-0 hidden md:flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl shadow-lg">
+                            <span class="text-white font-bold">2.5</span>
+                        </div>
+                        
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-sm font-bold px-4 py-1 rounded-full">
+                                    v2.5.0
+                                </span>
+                                <span class="text-gray-500 text-sm">2024년 12월 1일</span>
+                                <span class="bg-emerald-100 text-emerald-700 text-xs font-medium px-2 py-1 rounded">Latest</span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">AI 보고서 생성 2.0 출시</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-emerald-600 mb-2">
+                                        <i class="fas fa-star mr-2"></i>새로운 기능
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>AI 보고서 생성 2.0</strong> - GPT-4 기반 더욱 정교한 ESG 보고서 자동 생성</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>TCFD 템플릿 추가</strong> - 기후 관련 재무정보 공시 보고서 템플릿</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>다국어 보고서 지원</strong> - 영어, 일본어, 중국어 보고서 생성 가능</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-blue-600 mb-2">
+                                        <i class="fas fa-arrow-up mr-2"></i>개선사항
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>대시보드 로딩 속도 40% 개선</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>탄소 배출량 계산 알고리즘 정확도 향상</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version 2.4.0 -->
+                <div class="changelog-entry mb-12 relative" data-types="feature,improvement,fix">
+                    <div class="md:pl-20">
+                        <div class="absolute left-0 top-0 hidden md:flex items-center justify-center w-16 h-16 bg-white border-2 border-emerald-500 rounded-2xl">
+                            <span class="text-emerald-600 font-bold">2.4</span>
+                        </div>
+                        
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="bg-gray-200 text-gray-700 text-sm font-bold px-4 py-1 rounded-full">
+                                    v2.4.0
+                                </span>
+                                <span class="text-gray-500 text-sm">2024년 11월 15일</span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">공급망 ESG 관리 기능</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-emerald-600 mb-2">
+                                        <i class="fas fa-star mr-2"></i>새로운 기능
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>공급망 ESG 평가</strong> - 협력업체 ESG 현황 평가 및 관리 기능</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>리스크 알림</strong> - 공급망 ESG 리스크 자동 감지 및 알림</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-blue-600 mb-2">
+                                        <i class="fas fa-arrow-up mr-2"></i>개선사항
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>모바일 반응형 디자인 개선</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-red-600 mb-2">
+                                        <i class="fas fa-bug mr-2"></i>버그 수정
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-red-500 mr-2 mt-1"></i>
+                                            <span>일부 브라우저에서 차트 렌더링 오류 수정</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version 2.3.0 -->
+                <div class="changelog-entry mb-12 relative" data-types="feature,improvement">
+                    <div class="md:pl-20">
+                        <div class="absolute left-0 top-0 hidden md:flex items-center justify-center w-16 h-16 bg-white border-2 border-emerald-500 rounded-2xl">
+                            <span class="text-emerald-600 font-bold">2.3</span>
+                        </div>
+                        
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="bg-gray-200 text-gray-700 text-sm font-bold px-4 py-1 rounded-full">
+                                    v2.3.0
+                                </span>
+                                <span class="text-gray-500 text-sm">2024년 10월 28일</span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">ESG 목표 관리 고도화</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-emerald-600 mb-2">
+                                        <i class="fas fa-star mr-2"></i>새로운 기능
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>SBTi 목표 설정</strong> - 과학 기반 감축 목표 설정 가이드</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>마일스톤 트래킹</strong> - 세부 목표별 진행 상황 관리</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-blue-600 mb-2">
+                                        <i class="fas fa-arrow-up mr-2"></i>개선사항
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>대시보드 UI/UX 전면 개편</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>알림 설정 세분화 옵션 추가</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version 2.2.0 -->
+                <div class="changelog-entry mb-12 relative" data-types="feature,fix">
+                    <div class="md:pl-20">
+                        <div class="absolute left-0 top-0 hidden md:flex items-center justify-center w-16 h-16 bg-white border-2 border-emerald-500 rounded-2xl">
+                            <span class="text-emerald-600 font-bold">2.2</span>
+                        </div>
+                        
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="bg-gray-200 text-gray-700 text-sm font-bold px-4 py-1 rounded-full">
+                                    v2.2.0
+                                </span>
+                                <span class="text-gray-500 text-sm">2024년 10월 10일</span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">데이터 연동 확장</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-emerald-600 mb-2">
+                                        <i class="fas fa-star mr-2"></i>새로운 기능
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>ERP 연동</strong> - SAP, Oracle 등 주요 ERP 시스템 연동</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>Excel 일괄 업로드</strong> - 대량 데이터 엑셀 업로드 기능</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-red-600 mb-2">
+                                        <i class="fas fa-bug mr-2"></i>버그 수정
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-red-500 mr-2 mt-1"></i>
+                                            <span>PDF 보고서 내보내기 시 한글 깨짐 현상 수정</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-red-500 mr-2 mt-1"></i>
+                                            <span>특정 조건에서 점수 계산 오류 수정</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version 2.1.0 -->
+                <div class="changelog-entry mb-12 relative" data-types="improvement,fix">
+                    <div class="md:pl-20">
+                        <div class="absolute left-0 top-0 hidden md:flex items-center justify-center w-16 h-16 bg-white border-2 border-emerald-500 rounded-2xl">
+                            <span class="text-emerald-600 font-bold">2.1</span>
+                        </div>
+                        
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="bg-gray-200 text-gray-700 text-sm font-bold px-4 py-1 rounded-full">
+                                    v2.1.0
+                                </span>
+                                <span class="text-gray-500 text-sm">2024년 9월 22일</span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">성능 최적화 및 안정성 개선</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-blue-600 mb-2">
+                                        <i class="fas fa-arrow-up mr-2"></i>개선사항
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>서버 응답 시간 50% 단축</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>데이터 캐싱 시스템 도입</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-blue-500 mr-2 mt-1"></i>
+                                            <span>API 문서 개선</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-red-600 mb-2">
+                                        <i class="fas fa-bug mr-2"></i>버그 수정
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-red-500 mr-2 mt-1"></i>
+                                            <span>로그인 세션 만료 관련 이슈 수정</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version 2.0.0 -->
+                <div class="changelog-entry mb-12 relative" data-types="feature">
+                    <div class="md:pl-20">
+                        <div class="absolute left-0 top-0 hidden md:flex items-center justify-center w-16 h-16 bg-white border-2 border-emerald-500 rounded-2xl">
+                            <span class="text-emerald-600 font-bold">2.0</span>
+                        </div>
+                        
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border-2 border-emerald-200">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="bg-gray-200 text-gray-700 text-sm font-bold px-4 py-1 rounded-full">
+                                    v2.0.0
+                                </span>
+                                <span class="text-gray-500 text-sm">2024년 9월 1일</span>
+                                <span class="bg-purple-100 text-purple-700 text-xs font-medium px-2 py-1 rounded">Major Release</span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">🎉 ESG Insight 2.0 정식 출시</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="flex items-center text-sm font-semibold text-emerald-600 mb-2">
+                                        <i class="fas fa-star mr-2"></i>새로운 기능
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>새로운 대시보드</strong> - 완전히 새롭게 디자인된 ESG 대시보드</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>AI 보고서 생성</strong> - AI 기반 ESG 보고서 자동 생성 기능</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>실시간 스코어링</strong> - ESG 점수 실시간 산출 시스템</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>탄소 배출량 추적</strong> - Scope 1, 2, 3 배출량 자동 계산</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-emerald-500 mr-2 mt-1"></i>
+                                            <span><strong>규제 모니터링</strong> - ESG 관련 법규 변화 실시간 알림</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-8">
+                <button class="bg-white border-2 border-emerald-500 text-emerald-600 px-8 py-3 rounded-xl font-semibold hover:bg-emerald-50 transition">
+                    이전 버전 더 보기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe to Updates -->
+    <section class="py-16 gradient-bg">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <i class="fas fa-rss text-2xl text-emerald-600"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">업데이트 소식 받기</h2>
+            <p class="text-gray-600 mb-8">
+                새로운 기능이 출시되면 가장 먼저 알려드립니다.
+            </p>
+            <form class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+                <input type="email" placeholder="이메일 주소 입력" class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                <button type="submit" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition whitespace-nowrap">
+                    구독하기
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">ESG Insight</span>
+                    </div>
+                    <p class="text-sm">중소기업을 위한<br>스마트 ESG 경영 플랫폼</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">제품</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features" class="hover:text-white">기능 소개</a></li>
+                        <li><a href="/pricing" class="hover:text-white">요금제</a></li>
+                        <li><a href="/changelog" class="hover:text-white">업데이트 내역</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">회사</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about" class="hover:text-white">회사 소개</a></li>
+                        <li><a href="/blog" class="hover:text-white">블로그</a></li>
+                        <li><a href="/careers" class="hover:text-white">채용</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">고객지원</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/support" class="hover:text-white">고객센터</a></li>
+                        <li><a href="/terms" class="hover:text-white">이용약관</a></li>
+                        <li><a href="/privacy" class="hover:text-white">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>© 2024 ESG Insight. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function filterChangelog(type) {
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === type) {
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                    btn.classList.add('bg-emerald-500', 'text-white');
+                } else {
+                    btn.classList.remove('bg-emerald-500', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                }
+            });
+
+            // Filter entries
+            document.querySelectorAll('.changelog-entry').forEach(entry => {
+                const types = entry.dataset.types.split(',');
+                if (type === 'all' || types.includes(type)) {
+                    entry.style.display = 'block';
+                } else {
+                    entry.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

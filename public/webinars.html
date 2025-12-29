@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웨비나 & 교육 - ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #ecfdf5 0%, #cffafe 100%); }
+        .gradient-text { background: linear-gradient(135deg, #059669 0%, #0891b2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .webinar-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .webinar-card { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="/" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-leaf text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">ESG Insight</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-emerald-600">홈</a>
+                    <a href="/features" class="text-gray-600 hover:text-emerald-600">기능</a>
+                    <a href="/pricing" class="text-gray-600 hover:text-emerald-600">요금제</a>
+                    <a href="/webinars" class="text-emerald-600 font-medium">웨비나</a>
+                    <a href="/login" class="text-gray-600 hover:text-emerald-600">로그인</a>
+                    <a href="/demo" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-4 py-2 rounded-lg hover:shadow-lg transition">데모 신청</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center bg-white rounded-full px-4 py-2 shadow-sm mb-6">
+                <i class="fas fa-video text-emerald-500 mr-2"></i>
+                <span class="text-sm font-medium text-gray-700">ESG Academy</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                웨비나 & <span class="gradient-text">교육 프로그램</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                ESG 전문가들이 진행하는 무료 웨비나와 체계적인 교육 콘텐츠로 
+                ESG 경영 역량을 강화하세요.
+            </p>
+        </div>
+    </section>
+
+    <!-- Upcoming Webinars -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-10">
+                <div>
+                    <span class="text-emerald-600 font-semibold">UPCOMING</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mt-1">예정된 웨비나</h2>
+                </div>
+                <a href="#past-webinars" class="text-emerald-600 font-medium hover:underline">
+                    지난 웨비나 보기 <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Upcoming Webinar 1 -->
+                <div class="webinar-card bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-emerald-500">
+                    <div class="bg-gradient-to-r from-emerald-500 to-cyan-500 p-4">
+                        <span class="bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-full">
+                            <i class="fas fa-star mr-1"></i>Featured
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-emerald-100 text-emerald-700 px-3 py-2 rounded-lg text-center">
+                                <div class="text-2xl font-bold">15</div>
+                                <div class="text-xs">12월</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">2024년 12월 15일 (수)</div>
+                                <div class="text-sm text-gray-500">오후 2:00 - 3:30 (90분)</div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">
+                            2025년 ESG 규제 변화와 대응 전략
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            EU CSRD, K-ESG 가이드라인 등 2025년 주요 ESG 규제 변화를 살펴보고 
+                            중소기업의 효과적인 대응 전략을 제시합니다.
+                        </p>
+                        <div class="flex items-center mb-4">
+                            <img src="https://ui-avatars.com/api/?name=김정현&background=059669&color=fff" alt="Speaker" class="w-10 h-10 rounded-full mr-3">
+                            <div>
+                                <div class="font-medium text-gray-900">김정현</div>
+                                <div class="text-sm text-gray-500">ESG 컨설팅 파트너</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-users mr-2"></i>
+                                <span>128명 신청</span>
+                            </div>
+                            <button onclick="registerWebinar('2025-esg-regulations')" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition">
+                                참가 신청
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Webinar 2 -->
+                <div class="webinar-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4">
+                        <span class="bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-full">
+                            <i class="fas fa-chart-line mr-1"></i>실전 워크샵
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="bg-blue-100 text-blue-700 px-3 py-2 rounded-lg text-center">
+                                <div class="text-2xl font-bold">22</div>
+                                <div class="text-xs">12월</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">2024년 12월 22일 (수)</div>
+                                <div class="text-sm text-gray-500">오후 3:00 - 4:30 (90분)</div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">
+                            탄소회계 실무: Scope 3 산정 방법론
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            공급망 탄소배출량(Scope 3) 산정의 실무적 접근 방법과 
+                            ESG Insight를 활용한 자동화 방안을 알아봅니다.
+                        </p>
+                        <div class="flex items-center mb-4">
+                            <img src="https://ui-avatars.com/api/?name=이수진&background=3b82f6&color=fff" alt="Speaker" class="w-10 h-10 rounded-full mr-3">
+                            <div>
+                                <div class="font-medium text-gray-900">이수진</div>
+                                <div class="text-sm text-gray-500">탄소경영 전문가</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-users mr-2"></i>
+                                <span>76명 신청</span>
+                            </div>
+                            <button onclick="registerWebinar('scope3-workshop')" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition">
+                                참가 신청
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Courses -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-semibold">COURSES</span>
+                <h2 class="text-3xl font-bold text-gray-900 mt-2">체계적인 ESG 교육 과정</h2>
+                <p class="text-gray-600 mt-4">단계별로 구성된 교육 과정으로 ESG 전문가로 성장하세요</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Course 1: Beginner -->
+                <div class="bg-gradient-to-br from-emerald-50 to-cyan-50 rounded-2xl p-6 border border-emerald-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">입문</span>
+                        <span class="text-gray-500 text-sm">8개 강의</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">ESG 기초 마스터</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        ESG의 기본 개념부터 글로벌 트렌드까지 ESG 경영의 기초를 다집니다.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-emerald-500 mr-2"></i>ESG란 무엇인가?
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-emerald-500 mr-2"></i>E/S/G 각 영역 이해
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-emerald-500 mr-2"></i>글로벌 ESG 표준 개요
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-emerald-500 mr-2"></i>중소기업 ESG 시작하기
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-gray-400 mr-2"></i>
+                            <span class="text-sm text-gray-500">약 3시간</span>
+                        </div>
+                        <span class="text-emerald-600 font-bold">무료</span>
+                    </div>
+                    <button class="w-full mt-4 bg-emerald-500 text-white py-3 rounded-xl font-medium hover:bg-emerald-600 transition">
+                        수강 시작하기
+                    </button>
+                </div>
+
+                <!-- Course 2: Intermediate -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">중급</span>
+                        <span class="text-gray-500 text-sm">12개 강의</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">ESG 보고서 작성 실무</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        GRI, TCFD 등 글로벌 표준에 맞는 ESG 보고서 작성법을 배웁니다.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-blue-500 mr-2"></i>GRI Standards 이해
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-blue-500 mr-2"></i>TCFD 공시 요건
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-blue-500 mr-2"></i>중요성 평가 방법
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-blue-500 mr-2"></i>데이터 수집 및 검증
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-gray-400 mr-2"></i>
+                            <span class="text-sm text-gray-500">약 5시간</span>
+                        </div>
+                        <span class="text-blue-600 font-bold">Pro 전용</span>
+                    </div>
+                    <button class="w-full mt-4 bg-blue-500 text-white py-3 rounded-xl font-medium hover:bg-blue-600 transition">
+                        수강 시작하기
+                    </button>
+                </div>
+
+                <!-- Course 3: Advanced -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">고급</span>
+                        <span class="text-gray-500 text-sm">15개 강의</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">탄소경영 전문가 과정</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        탄소회계, 감축 전략, 탄소중립 로드맵 수립까지 전문 역량을 키웁니다.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>GHG Protocol 심화
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>Scope 1/2/3 산정 실무
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>감축 목표 설정(SBTi)
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>탄소중립 전략 수립
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-gray-400 mr-2"></i>
+                            <span class="text-sm text-gray-500">약 8시간</span>
+                        </div>
+                        <span class="text-purple-600 font-bold">Enterprise 전용</span>
+                    </div>
+                    <button class="w-full mt-4 bg-purple-500 text-white py-3 rounded-xl font-medium hover:bg-purple-600 transition">
+                        수강 시작하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Webinars -->
+    <section id="past-webinars" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-semibold">ON-DEMAND</span>
+                <h2 class="text-3xl font-bold text-gray-900 mt-2">지난 웨비나 다시보기</h2>
+                <p class="text-gray-600 mt-4">놓친 웨비나를 언제든지 시청하세요</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Past Webinar 1 -->
+                <div class="webinar-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="aspect-video bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-5xl opacity-80"></i>
+                        </div>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                            1:23:45
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs text-gray-500">2024.11.20</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded">규제</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">EU CSRD 대응 전략</h4>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-eye mr-1"></i>1.2K 조회
+                            </div>
+                            <button class="text-emerald-600 text-sm font-medium hover:underline">
+                                시청하기 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Past Webinar 2 -->
+                <div class="webinar-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="aspect-video bg-gradient-to-br from-blue-400 to-indigo-400 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-5xl opacity-80"></i>
+                        </div>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                            58:32
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs text-gray-500">2024.11.08</span>
+                            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">탄소</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">탄소발자국 계산 실습</h4>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-eye mr-1"></i>892 조회
+                            </div>
+                            <button class="text-emerald-600 text-sm font-medium hover:underline">
+                                시청하기 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Past Webinar 3 -->
+                <div class="webinar-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="aspect-video bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-5xl opacity-80"></i>
+                        </div>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                            1:05:18
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs text-gray-500">2024.10.25</span>
+                            <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded">거버넌스</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">ESG 거버넌스 구축하기</h4>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-eye mr-1"></i>654 조회
+                            </div>
+                            <button class="text-emerald-600 text-sm font-medium hover:underline">
+                                시청하기 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Past Webinar 4 -->
+                <div class="webinar-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="aspect-video bg-gradient-to-br from-orange-400 to-amber-400 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-5xl opacity-80"></i>
+                        </div>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                            47:22
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs text-gray-500">2024.10.11</span>
+                            <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded">공급망</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">공급망 ESG 리스크 관리</h4>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-eye mr-1"></i>521 조회
+                            </div>
+                            <button class="text-emerald-600 text-sm font-medium hover:underline">
+                                시청하기 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Past Webinar 5 -->
+                <div class="webinar-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="aspect-video bg-gradient-to-br from-green-400 to-teal-400 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-5xl opacity-80"></i>
+                        </div>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                            1:12:05
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs text-gray-500">2024.09.27</span>
+                            <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">보고서</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">첫 ESG 보고서 작성 가이드</h4>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-eye mr-1"></i>1.8K 조회
+                            </div>
+                            <button class="text-emerald-600 text-sm font-medium hover:underline">
+                                시청하기 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Past Webinar 6 -->
+                <div class="webinar-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="aspect-video bg-gradient-to-br from-red-400 to-rose-400 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-white text-5xl opacity-80"></i>
+                        </div>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                            52:41
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs text-gray-500">2024.09.13</span>
+                            <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">사회</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">다양성 & 포용성 정책 수립</h4>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-eye mr-1"></i>438 조회
+                            </div>
+                            <button class="text-emerald-600 text-sm font-medium hover:underline">
+                                시청하기 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-10">
+                <button class="bg-white border-2 border-emerald-500 text-emerald-600 px-8 py-3 rounded-xl font-semibold hover:bg-emerald-50 transition">
+                    더 많은 웨비나 보기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 gradient-bg">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <i class="fas fa-bell text-2xl text-emerald-600"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">웨비나 알림 받기</h2>
+            <p class="text-gray-600 mb-8">
+                새로운 웨비나가 등록되면 가장 먼저 알려드립니다.
+            </p>
+            <form class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+                <input type="email" placeholder="이메일 주소 입력" class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                <button type="submit" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition whitespace-nowrap">
+                    알림 신청
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">ESG Insight</span>
+                    </div>
+                    <p class="text-sm">중소기업을 위한<br>스마트 ESG 경영 플랫폼</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">제품</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features" class="hover:text-white">기능 소개</a></li>
+                        <li><a href="/pricing" class="hover:text-white">요금제</a></li>
+                        <li><a href="/webinars" class="hover:text-white">웨비나</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">회사</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about" class="hover:text-white">회사 소개</a></li>
+                        <li><a href="/blog" class="hover:text-white">블로그</a></li>
+                        <li><a href="/careers" class="hover:text-white">채용</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">고객지원</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/support" class="hover:text-white">고객센터</a></li>
+                        <li><a href="/terms" class="hover:text-white">이용약관</a></li>
+                        <li><a href="/privacy" class="hover:text-white">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>© 2024 ESG Insight. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function registerWebinar(webinarId) {
+            alert(`웨비나 참가 신청\n\n웨비나: ${webinarId}\n\n* 로그인 후 신청하시면 참가 링크가 이메일로 발송됩니다.`);
+        }
+    </script>
+</body>
+</html>

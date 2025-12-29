@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보고서 샘플 - ESG Insight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #ecfdf5 0%, #cffafe 100%); }
+        .gradient-text { background: linear-gradient(135deg, #059669 0%, #0891b2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .report-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        .report-card { transition: all 0.3s ease; }
+        .preview-modal { backdrop-filter: blur(8px); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="/" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-leaf text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">ESG Insight</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-600 hover:text-emerald-600">홈</a>
+                    <a href="/features" class="text-gray-600 hover:text-emerald-600">기능</a>
+                    <a href="/pricing" class="text-gray-600 hover:text-emerald-600">요금제</a>
+                    <a href="/blog" class="text-gray-600 hover:text-emerald-600">블로그</a>
+                    <a href="/login" class="text-gray-600 hover:text-emerald-600">로그인</a>
+                    <a href="/demo" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-4 py-2 rounded-lg hover:shadow-lg transition">데모 신청</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center bg-white rounded-full px-4 py-2 shadow-sm mb-6">
+                <i class="fas fa-file-alt text-emerald-500 mr-2"></i>
+                <span class="text-sm font-medium text-gray-700">Report Templates</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                전문적인 <span class="gradient-text">ESG 보고서</span> 템플릿
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                GRI, TCFD, SASB 등 글로벌 표준을 준수하는 다양한 보고서 템플릿을 확인하세요.
+                AI가 자동으로 생성하는 전문적인 보고서를 미리 체험해보세요.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/signup" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition">
+                    <i class="fas fa-rocket mr-2"></i>무료로 보고서 만들기
+                </a>
+                <a href="/demo" class="bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition border">
+                    <i class="fas fa-play-circle mr-2"></i>데모 보기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Categories -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="filterReports('all')" class="filter-btn active px-6 py-2 rounded-full bg-emerald-500 text-white font-medium transition" data-filter="all">
+                    전체
+                </button>
+                <button onclick="filterReports('annual')" class="filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition" data-filter="annual">
+                    연간 보고서
+                </button>
+                <button onclick="filterReports('quarterly')" class="filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition" data-filter="quarterly">
+                    분기 보고서
+                </button>
+                <button onclick="filterReports('carbon')" class="filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition" data-filter="carbon">
+                    탄소 보고서
+                </button>
+                <button onclick="filterReports('supply')" class="filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition" data-filter="supply">
+                    공급망 보고서
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Templates Grid -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="reportsGrid">
+                
+                <!-- Report 1: Annual ESG Report -->
+                <div class="report-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="annual">
+                    <div class="h-48 bg-gradient-to-br from-emerald-500 to-cyan-500 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                                <i class="fas fa-file-alt text-white text-4xl mb-2"></i>
+                                <div class="text-white font-bold">ESG 연간보고서</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-white text-xs font-medium">GRI 표준</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">연간 보고서</span>
+                            <span class="text-xs text-gray-500">30+ 페이지</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">ESG 연간 통합 보고서</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            GRI Standards를 준수하는 종합적인 ESG 연간 보고서. 환경, 사회, 지배구조 전 영역을 포괄합니다.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">GRI</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">TCFD</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">UN SDGs</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openPreview('annual-esg')" class="flex-1 bg-emerald-50 text-emerald-600 py-2 rounded-lg font-medium hover:bg-emerald-100 transition">
+                                <i class="fas fa-eye mr-1"></i>미리보기
+                            </button>
+                            <button onclick="downloadSample('annual-esg')" class="flex-1 border border-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition">
+                                <i class="fas fa-download mr-1"></i>샘플
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 2: Quarterly Report -->
+                <div class="report-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="quarterly">
+                    <div class="h-48 bg-gradient-to-br from-blue-500 to-indigo-500 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                                <i class="fas fa-chart-bar text-white text-4xl mb-2"></i>
+                                <div class="text-white font-bold">분기 보고서</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-white text-xs font-medium">Quick Report</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">분기 보고서</span>
+                            <span class="text-xs text-gray-500">10-15 페이지</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">ESG 분기별 성과 보고서</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            분기별 ESG 성과를 요약하고 주요 지표의 변화를 추적하는 간결한 보고서입니다.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">KPI 추적</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">트렌드 분석</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openPreview('quarterly')" class="flex-1 bg-blue-50 text-blue-600 py-2 rounded-lg font-medium hover:bg-blue-100 transition">
+                                <i class="fas fa-eye mr-1"></i>미리보기
+                            </button>
+                            <button onclick="downloadSample('quarterly')" class="flex-1 border border-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition">
+                                <i class="fas fa-download mr-1"></i>샘플
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 3: Carbon Footprint Report -->
+                <div class="report-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="carbon">
+                    <div class="h-48 bg-gradient-to-br from-green-500 to-teal-500 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                                <i class="fas fa-cloud text-white text-4xl mb-2"></i>
+                                <div class="text-white font-bold">탄소 보고서</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-white text-xs font-medium">GHG Protocol</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">탄소 보고서</span>
+                            <span class="text-xs text-gray-500">20+ 페이지</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">탄소 배출량 보고서</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Scope 1, 2, 3 배출량을 상세히 분석하고 감축 목표 달성 현황을 보고합니다.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Scope 1/2/3</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">감축 로드맵</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openPreview('carbon')" class="flex-1 bg-green-50 text-green-600 py-2 rounded-lg font-medium hover:bg-green-100 transition">
+                                <i class="fas fa-eye mr-1"></i>미리보기
+                            </button>
+                            <button onclick="downloadSample('carbon')" class="flex-1 border border-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition">
+                                <i class="fas fa-download mr-1"></i>샘플
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 4: TCFD Report -->
+                <div class="report-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="annual">
+                    <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                                <i class="fas fa-thermometer-half text-white text-4xl mb-2"></i>
+                                <div class="text-white font-bold">TCFD 보고서</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-white text-xs font-medium">기후 리스크</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-purple-600 bg-purple-50 px-3 py-1 rounded-full">연간 보고서</span>
+                            <span class="text-xs text-gray-500">25+ 페이지</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">TCFD 기후 공시 보고서</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            TCFD 권고안에 따른 기후 관련 재무정보 공시 보고서입니다.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">거버넌스</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">시나리오 분석</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openPreview('tcfd')" class="flex-1 bg-purple-50 text-purple-600 py-2 rounded-lg font-medium hover:bg-purple-100 transition">
+                                <i class="fas fa-eye mr-1"></i>미리보기
+                            </button>
+                            <button onclick="downloadSample('tcfd')" class="flex-1 border border-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition">
+                                <i class="fas fa-download mr-1"></i>샘플
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 5: Supply Chain ESG Report -->
+                <div class="report-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="supply">
+                    <div class="h-48 bg-gradient-to-br from-orange-500 to-amber-500 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                                <i class="fas fa-link text-white text-4xl mb-2"></i>
+                                <div class="text-white font-bold">공급망 보고서</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-white text-xs font-medium">Due Diligence</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-orange-600 bg-orange-50 px-3 py-1 rounded-full">공급망 보고서</span>
+                            <span class="text-xs text-gray-500">15-20 페이지</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">공급망 ESG 실사 보고서</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            협력업체 ESG 현황 분석 및 공급망 리스크 평가 보고서입니다.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">리스크 평가</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">협력사 점수</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openPreview('supply')" class="flex-1 bg-orange-50 text-orange-600 py-2 rounded-lg font-medium hover:bg-orange-100 transition">
+                                <i class="fas fa-eye mr-1"></i>미리보기
+                            </button>
+                            <button onclick="downloadSample('supply')" class="flex-1 border border-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition">
+                                <i class="fas fa-download mr-1"></i>샘플
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 6: Executive Summary -->
+                <div class="report-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="quarterly">
+                    <div class="h-48 bg-gradient-to-br from-red-500 to-rose-500 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                                <i class="fas fa-briefcase text-white text-4xl mb-2"></i>
+                                <div class="text-white font-bold">경영진 보고서</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-white text-xs font-medium">Executive</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-red-600 bg-red-50 px-3 py-1 rounded-full">분기 보고서</span>
+                            <span class="text-xs text-gray-500">5-10 페이지</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">경영진 ESG 요약 보고서</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            핵심 지표와 주요 이슈를 한눈에 파악할 수 있는 경영진용 요약 보고서입니다.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">핵심 KPI</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">인포그래픽</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openPreview('executive')" class="flex-1 bg-red-50 text-red-600 py-2 rounded-lg font-medium hover:bg-red-100 transition">
+                                <i class="fas fa-eye mr-1"></i>미리보기
+                            </button>
+                            <button onclick="downloadSample('executive')" class="flex-1 border border-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition">
+                                <i class="fas fa-download mr-1"></i>샘플
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Generation Process -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-emerald-600 font-semibold">HOW IT WORKS</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">AI 보고서 생성 과정</h2>
+                <p class="text-gray-600 mt-4">단 3단계로 전문적인 ESG 보고서를 완성하세요</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-emerald-100 to-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold gradient-text">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">데이터 입력</h3>
+                    <p class="text-gray-600">
+                        대시보드에서 관리하는 ESG 데이터가 자동으로 연동됩니다. 
+                        추가 데이터도 간편하게 입력할 수 있습니다.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold text-blue-600">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">AI 분석 & 생성</h3>
+                    <p class="text-gray-600">
+                        AI가 데이터를 분석하고 선택한 템플릿에 맞춰 
+                        전문적인 보고서를 자동으로 작성합니다.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold text-purple-600">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">검토 & 다운로드</h3>
+                    <p class="text-gray-600">
+                        생성된 보고서를 검토하고 필요시 수정한 후 
+                        PDF, Word 등 다양한 포맷으로 다운로드합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Standards Supported -->
+    <section class="py-20 gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">지원하는 글로벌 표준</h2>
+                <p class="text-gray-600">국제적으로 인정받는 ESG 보고 표준을 준수합니다</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="text-2xl font-bold text-gray-900 mb-2">GRI</div>
+                    <p class="text-xs text-gray-500">Global Reporting Initiative</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="text-2xl font-bold text-gray-900 mb-2">TCFD</div>
+                    <p class="text-xs text-gray-500">기후 관련 재무공시</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="text-2xl font-bold text-gray-900 mb-2">SASB</div>
+                    <p class="text-xs text-gray-500">지속가능성 회계 표준</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="text-2xl font-bold text-gray-900 mb-2">CDP</div>
+                    <p class="text-xs text-gray-500">탄소 정보 공개</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="text-2xl font-bold text-gray-900 mb-2">UN SDGs</div>
+                    <p class="text-xs text-gray-500">지속가능발전목표</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md">
+                    <div class="text-2xl font-bold text-gray-900 mb-2">K-ESG</div>
+                    <p class="text-xs text-gray-500">한국형 ESG 가이드</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                지금 바로 ESG 보고서를 만들어보세요
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                무료 체험 기간 동안 모든 보고서 템플릿을 사용할 수 있습니다
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/signup" class="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition">
+                    <i class="fas fa-rocket mr-2"></i>무료 체험 시작하기
+                </a>
+                <a href="/contact" class="bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold hover:shadow-lg transition border">
+                    <i class="fas fa-phone mr-2"></i>문의하기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="preview-modal fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div class="flex items-center justify-between p-4 border-b">
+                <h3 id="previewTitle" class="font-bold text-gray-900">보고서 미리보기</h3>
+                <button onclick="closePreview()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+                    <i class="fas fa-times text-gray-500"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto" style="max-height: calc(90vh - 140px);">
+                <div id="previewContent">
+                    <!-- Preview content will be inserted here -->
+                </div>
+            </div>
+            <div class="p-4 border-t flex justify-end gap-3">
+                <button onclick="closePreview()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                    닫기
+                </button>
+                <a href="/signup" class="px-6 py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-lg hover:shadow-lg">
+                    무료로 만들기
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-leaf text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">ESG Insight</span>
+                    </div>
+                    <p class="text-sm">중소기업을 위한<br>스마트 ESG 경영 플랫폼</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">제품</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/features" class="hover:text-white">기능 소개</a></li>
+                        <li><a href="/pricing" class="hover:text-white">요금제</a></li>
+                        <li><a href="/reports" class="hover:text-white">보고서 샘플</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">회사</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/about" class="hover:text-white">회사 소개</a></li>
+                        <li><a href="/blog" class="hover:text-white">블로그</a></li>
+                        <li><a href="/careers" class="hover:text-white">채용</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">고객지원</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/support" class="hover:text-white">고객센터</a></li>
+                        <li><a href="/terms" class="hover:text-white">이용약관</a></li>
+                        <li><a href="/privacy" class="hover:text-white">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>© 2024 ESG Insight. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function filterReports(category) {
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                    btn.classList.add('bg-emerald-500', 'text-white');
+                } else {
+                    btn.classList.remove('bg-emerald-500', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                }
+            });
+
+            // Filter cards
+            document.querySelectorAll('.report-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        const previewContents = {
+            'annual-esg': `
+                <div class="space-y-6">
+                    <div class="text-center pb-6 border-b">
+                        <h2 class="text-2xl font-bold text-gray-900">ESG 연간 통합 보고서</h2>
+                        <p class="text-gray-500 mt-2">Sample Company | 2024</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-green-50 rounded-lg p-4 text-center">
+                            <div class="text-3xl font-bold text-green-600">82</div>
+                            <div class="text-sm text-gray-600">환경 점수</div>
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-4 text-center">
+                            <div class="text-3xl font-bold text-blue-600">78</div>
+                            <div class="text-sm text-gray-600">사회 점수</div>
+                        </div>
+                        <div class="bg-purple-50 rounded-lg p-4 text-center">
+                            <div class="text-3xl font-bold text-purple-600">85</div>
+                            <div class="text-sm text-gray-600">지배구조 점수</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-3">목차</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>1. CEO 메시지</li>
+                            <li>2. 기업 개요</li>
+                            <li>3. ESG 전략 및 거버넌스</li>
+                            <li>4. 환경(E) - 기후변화 대응</li>
+                            <li>5. 사회(S) - 이해관계자 참여</li>
+                            <li>6. 지배구조(G) - 윤리경영</li>
+                            <li>7. 부록 - GRI 인덱스</li>
+                        </ul>
+                    </div>
+                </div>
+            `,
+            'quarterly': `
+                <div class="space-y-6">
+                    <div class="text-center pb-6 border-b">
+                        <h2 class="text-2xl font-bold text-gray-900">Q3 2024 ESG 성과 보고서</h2>
+                        <p class="text-gray-500 mt-2">Sample Company</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-bold text-gray-900 mb-3">주요 성과 하이라이트</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">탄소 배출량 감소</span>
+                                <span class="text-emerald-600 font-medium">-15% YoY</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">재생에너지 사용률</span>
+                                <span class="text-emerald-600 font-medium">42%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">직원 만족도</span>
+                                <span class="text-emerald-600 font-medium">4.2/5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            'carbon': `
+                <div class="space-y-6">
+                    <div class="text-center pb-6 border-b">
+                        <h2 class="text-2xl font-bold text-gray-900">탄소 배출량 보고서</h2>
+                        <p class="text-gray-500 mt-2">GHG Protocol 기준 | 2024</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900">Scope 1 (직접 배출)</h4>
+                            <p class="text-2xl font-bold text-green-600">1,250 tCO2e</p>
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900">Scope 2 (간접 배출)</h4>
+                            <p class="text-2xl font-bold text-blue-600">3,420 tCO2e</p>
+                        </div>
+                        <div class="bg-purple-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900">Scope 3 (기타 간접)</h4>
+                            <p class="text-2xl font-bold text-purple-600">8,750 tCO2e</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            'tcfd': `
+                <div class="space-y-6">
+                    <div class="text-center pb-6 border-b">
+                        <h2 class="text-2xl font-bold text-gray-900">TCFD 기후 공시 보고서</h2>
+                        <p class="text-gray-500 mt-2">기후 관련 재무정보 공시</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">거버넌스</h4>
+                            <p class="text-sm text-gray-600">이사회 수준의 기후 리스크 감독 체계</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">전략</h4>
+                            <p class="text-sm text-gray-600">기후 관련 리스크와 기회 식별</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">리스크 관리</h4>
+                            <p class="text-sm text-gray-600">기후 리스크 식별 및 평가 프로세스</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">지표와 목표</h4>
+                            <p class="text-sm text-gray-600">Scope 1, 2, 3 배출량 및 감축 목표</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            'supply': `
+                <div class="space-y-6">
+                    <div class="text-center pb-6 border-b">
+                        <h2 class="text-2xl font-bold text-gray-900">공급망 ESG 실사 보고서</h2>
+                        <p class="text-gray-500 mt-2">협력업체 ESG 평가 결과</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-900 mb-3">협력업체 ESG 등급 분포</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <span class="w-16 text-sm">A등급</span>
+                                <div class="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500" style="width: 35%"></div>
+                                </div>
+                                <span class="w-12 text-right text-sm">35%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-16 text-sm">B등급</span>
+                                <div class="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-500" style="width: 45%"></div>
+                                </div>
+                                <span class="w-12 text-right text-sm">45%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-16 text-sm">C등급</span>
+                                <div class="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-yellow-500" style="width: 20%"></div>
+                                </div>
+                                <span class="w-12 text-right text-sm">20%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            'executive': `
+                <div class="space-y-6">
+                    <div class="text-center pb-6 border-b">
+                        <h2 class="text-2xl font-bold text-gray-900">경영진 ESG 요약 보고서</h2>
+                        <p class="text-gray-500 mt-2">2024년 3분기</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg p-6 text-white text-center">
+                        <div class="text-5xl font-bold">81.5</div>
+                        <div class="text-sm opacity-80 mt-1">통합 ESG 점수 (+3.2 vs 전분기)</div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-green-50 rounded-lg p-3">
+                            <span class="text-green-600">✓</span> 탄소중립 로드맵 수립 완료
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-3">
+                            <span class="text-green-600">✓</span> 공급망 ESG 평가 확대
+                        </div>
+                        <div class="bg-yellow-50 rounded-lg p-3">
+                            <span class="text-yellow-600">!</span> 다양성 지표 개선 필요
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-3">
+                            <span class="text-green-600">✓</span> 이사회 독립성 강화
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        function openPreview(reportType) {
+            const modal = document.getElementById('previewModal');
+            const content = document.getElementById('previewContent');
+            const title = document.getElementById('previewTitle');
+            
+            content.innerHTML = previewContents[reportType] || '<p>미리보기를 불러오는 중...</p>';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePreview() {
+            const modal = document.getElementById('previewModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function downloadSample(reportType) {
+            alert(`${reportType} 샘플 보고서 다운로드\n\n* 실제 서비스에서는 PDF 파일이 다운로드됩니다.`);
+        }
+
+        // Close modal on outside click
+        document.getElementById('previewModal').addEventListener('click', function(e) {
+            if (e.target === this) closePreview();
+        });
+    </script>
+</body>
+</html>

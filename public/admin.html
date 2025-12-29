@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-ESG 기준 관리 | ESG Insight 관리자</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e3a5f', 900: '#0f2744', 950: '#091a2e' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sidebar-link.active { background: rgba(16, 185, 129, 0.1); color: #10b981; border-left: 3px solid #10b981; }
+        .drag-over { border-color: #10b981 !important; background: rgba(16, 185, 129, 0.05) !important; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-navy-900 text-white fixed top-0 left-0 right-0 z-50">
+        <div class="flex items-center justify-between px-6 py-4">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <span class="font-bold text-lg">ESG Insight</span>
+                </div>
+                <span class="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs font-medium">관리자</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-300">안녕하세요, <strong id="admin-name">관리자</strong>님</span>
+                <button onclick="logout()" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition">
+                    로그아웃
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex pt-16">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-screen fixed left-0 top-16">
+            <nav class="p-4 space-y-1">
+                <a href="#dashboard" onclick="showSection('dashboard')" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    대시보드
+                </a>
+                <a href="#pdf-upload" onclick="showSection('pdf-upload')" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    PDF 업로드
+                </a>
+                <a href="#criteria-e" onclick="showSection('criteria-e')" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    <span class="w-5 h-5 bg-green-100 text-green-600 rounded flex items-center justify-center text-xs font-bold">E</span>
+                    환경 기준 관리
+                </a>
+                <a href="#criteria-s" onclick="showSection('criteria-s')" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    <span class="w-5 h-5 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-xs font-bold">S</span>
+                    사회 기준 관리
+                </a>
+                <a href="#criteria-g" onclick="showSection('criteria-g')" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    <span class="w-5 h-5 bg-purple-100 text-purple-600 rounded flex items-center justify-center text-xs font-bold">G</span>
+                    지배구조 기준 관리
+                </a>
+                <a href="#versions" onclick="showSection('versions')" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    버전 관리
+                </a>
+                <a href="#settings" onclick="showSection('settings')" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    설정
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <!-- Dashboard Section -->
+            <section id="section-dashboard" class="section-content">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-900">K-ESG 기준 관리 대시보드</h1>
+                    <p class="text-gray-600 mt-1">K-ESG 가이드라인 기반 평가 기준을 관리합니다</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-gray-500 text-sm">전체 평가 항목</span>
+                            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900" id="stat-total">61</div>
+                        <div class="text-xs text-gray-500 mt-1">K-ESG 가이드라인 기준</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-gray-500 text-sm">환경 (E)</span>
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span class="text-green-600 font-bold">E</span>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-green-600" id="stat-e">17</div>
+                        <div class="text-xs text-gray-500 mt-1">환경 관련 항목</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-gray-500 text-sm">사회 (S)</span>
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-blue-600 font-bold">S</span>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-blue-600" id="stat-s">22</div>
+                        <div class="text-xs text-gray-500 mt-1">사회 관련 항목</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-gray-500 text-sm">지배구조 (G)</span>
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span class="text-purple-600 font-bold">G</span>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-purple-600" id="stat-g">22</div>
+                        <div class="text-xs text-gray-500 mt-1">지배구조 관련 항목</div>
+                    </div>
+                </div>
+
+                <!-- Current Version & Quick Actions -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">현재 적용 버전</h3>
+                        <div class="flex items-center gap-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg mb-4">
+                            <div class="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <div id="current-version-name" class="font-bold text-gray-900">K-ESG 가이드라인 v1.0</div>
+                                <div id="current-version-date" class="text-sm text-gray-600">2024년 12월 업데이트</div>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between text-gray-600">
+                                <span>총 평가 항목:</span>
+                                <span id="current-version-items" class="font-medium text-gray-900">61개</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>최종 수정:</span>
+                                <span id="current-version-modified" class="font-medium text-gray-900">2024-12-10 14:30</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>수정자:</span>
+                                <span class="font-medium text-gray-900">admin</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">빠른 작업</h3>
+                        <div class="space-y-3">
+                            <button onclick="showSection('pdf-upload')" class="w-full flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition text-left">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">새 PDF 업로드</div>
+                                    <div class="text-xs text-gray-500">K-ESG 가이드라인 문서 업데이트</div>
+                                </div>
+                            </button>
+                            <button onclick="showSection('criteria-e')" class="w-full flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition text-left">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">평가 기준 편집</div>
+                                    <div class="text-xs text-gray-500">E/S/G 항목 추가, 수정, 삭제</div>
+                                </div>
+                            </button>
+                            <button onclick="exportCriteria()" class="w-full flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition text-left">
+                                <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">기준 내보내기</div>
+                                    <div class="text-xs text-gray-500">JSON/Excel 형식으로 다운로드</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PDF Upload Section -->
+            <section id="section-pdf-upload" class="section-content hidden">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-900">K-ESG 가이드라인 PDF 업로드</h1>
+                    <p class="text-gray-600 mt-1">새로운 K-ESG 가이드라인 문서를 업로드하고 평가 기준을 추출합니다</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Upload Area -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">PDF 파일 업로드</h3>
+                        <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-emerald-400 transition cursor-pointer">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            </div>
+                            <p class="text-gray-600 mb-2">PDF 파일을 여기에 드래그하거나</p>
+                            <button onclick="document.getElementById('pdf-input').click()" class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition text-sm">
+                                파일 선택
+                            </button>
+                            <input type="file" id="pdf-input" accept=".pdf" class="hidden" onchange="handleFileSelect(event)">
+                            <p class="text-xs text-gray-400 mt-4">최대 50MB, PDF 형식만 지원</p>
+                        </div>
+
+                        <!-- Selected File -->
+                        <div id="selected-file" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-medium text-gray-900" id="file-name">파일명.pdf</div>
+                                    <div class="text-xs text-gray-500" id="file-size">0 KB</div>
+                                </div>
+                                <button onclick="clearFile()" class="text-gray-400 hover:text-red-500">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Upload Options -->
+                        <div class="mt-6 space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">버전명</label>
+                                <input type="text" id="version-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="예: K-ESG 가이드라인 v2.0">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">변경 사항</label>
+                                <textarea id="version-notes" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="이번 업데이트의 주요 변경 사항을 입력하세요"></textarea>
+                            </div>
+                            <button onclick="uploadPDF()" id="upload-btn" class="w-full py-3 bg-emerald-500 text-white font-semibold rounded-lg hover:bg-emerald-600 transition">
+                                업로드 및 기준 추출
+                            </button>
+                            
+                            <!-- 진행 상태바 -->
+                            <div id="progress-container" class="hidden mt-4">
+                                <div class="bg-gray-100 rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span id="progress-status" class="text-sm font-medium text-gray-700">준비 중...</span>
+                                        <span id="progress-percent" class="text-sm font-bold text-emerald-600">0%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                        <div id="progress-bar" class="bg-gradient-to-r from-emerald-400 to-emerald-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                                    </div>
+                                    <div id="progress-detail" class="mt-3 text-xs text-gray-500">
+                                        <!-- 상세 진행 단계 -->
+                                    </div>
+                                    
+                                    <!-- 단계별 체크리스트 -->
+                                    <div class="mt-4 space-y-2">
+                                        <div id="step-upload" class="flex items-center gap-2 text-sm text-gray-400">
+                                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                                                <svg class="w-3 h-3 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                            </div>
+                                            <span>PDF 업로드 및 텍스트 추출</span>
+                                        </div>
+                                        <div id="step-analyze" class="flex items-center gap-2 text-sm text-gray-400">
+                                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                                                <svg class="w-3 h-3 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                            </div>
+                                            <span>AI 분석 중 (<span id="chunk-progress">0/0</span> 청크)</span>
+                                        </div>
+                                        <div id="step-complete" class="flex items-center gap-2 text-sm text-gray-400">
+                                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                                                <svg class="w-3 h-3 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                            </div>
+                                            <span>기준 추출 완료</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 예상 시간 -->
+                                    <div id="eta-info" class="mt-3 text-xs text-gray-500 text-center">
+                                        예상 소요 시간: <span id="eta-time">계산 중...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Uploaded Files History -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4">업로드 이력</h3>
+                        <div class="space-y-3" id="upload-history">
+                            <div class="text-center py-4 text-gray-500 text-sm">
+                                업로드된 파일이 없습니다.
+                            </div>
+                        </div>
+
+                        <!-- AI Extraction Info -->
+                        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div>
+                                    <p class="text-sm font-medium text-blue-800">AI 자동 추출</p>
+                                    <p class="text-xs text-blue-600 mt-1">PDF 업로드 시 AI가 자동으로 K-ESG 평가 항목을 추출합니다. 추출된 항목은 검토 후 적용할 수 있습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Criteria E Section -->
+            <section id="section-criteria-e" class="section-content hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">환경 (E) 기준 관리</h1>
+                        <p class="text-gray-600 mt-1">K-ESG 환경 영역 평가 항목을 관리합니다</p>
+                    </div>
+                    <button onclick="openAddModal('E')" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        항목 추가
+                    </button>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="bg-white rounded-xl shadow-sm mb-6">
+                    <div class="border-b px-6 py-4">
+                        <div class="flex gap-4">
+                            <button onclick="filterCategory('E', 'all')" class="cat-tab-E px-4 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-medium" data-cat="all">전체 (17)</button>
+                            <button onclick="filterCategory('E', '환경경영')" class="cat-tab-E px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="환경경영">환경경영 (6)</button>
+                            <button onclick="filterCategory('E', '환경성과')" class="cat-tab-E px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="환경성과">환경성과 (5)</button>
+                            <button onclick="filterCategory('E', '이해관계자')" class="cat-tab-E px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="이해관계자">이해관계자 (6)</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="criteria-list-E" class="space-y-3">
+                            <!-- Criteria items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Criteria S Section -->
+            <section id="section-criteria-s" class="section-content hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">사회 (S) 기준 관리</h1>
+                        <p class="text-gray-600 mt-1">K-ESG 사회 영역 평가 항목을 관리합니다</p>
+                    </div>
+                    <button onclick="openAddModal('S')" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        항목 추가
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm mb-6">
+                    <div class="border-b px-6 py-4">
+                        <div class="flex gap-4">
+                            <button onclick="filterCategory('S', 'all')" class="cat-tab-S px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium" data-cat="all">전체 (22)</button>
+                            <button onclick="filterCategory('S', '근로자')" class="cat-tab-S px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="근로자">근로자 (8)</button>
+                            <button onclick="filterCategory('S', '협력사')" class="cat-tab-S px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="협력사">협력사·경쟁사 (5)</button>
+                            <button onclick="filterCategory('S', '지역사회')" class="cat-tab-S px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="지역사회">지역사회 (5)</button>
+                            <button onclick="filterCategory('S', '소비자')" class="cat-tab-S px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="소비자">소비자 (4)</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="criteria-list-S" class="space-y-3">
+                            <!-- Criteria items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Criteria G Section -->
+            <section id="section-criteria-g" class="section-content hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">지배구조 (G) 기준 관리</h1>
+                        <p class="text-gray-600 mt-1">K-ESG 지배구조 영역 평가 항목을 관리합니다</p>
+                    </div>
+                    <button onclick="openAddModal('G')" class="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        항목 추가
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm mb-6">
+                    <div class="border-b px-6 py-4">
+                        <div class="flex gap-4">
+                            <button onclick="filterCategory('G', 'all')" class="cat-tab-G px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium" data-cat="all">전체 (22)</button>
+                            <button onclick="filterCategory('G', '이사회')" class="cat-tab-G px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="이사회">이사회 (8)</button>
+                            <button onclick="filterCategory('G', '주주권리')" class="cat-tab-G px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="주주권리">주주권리 (5)</button>
+                            <button onclick="filterCategory('G', '윤리경영')" class="cat-tab-G px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="윤리경영">윤리경영 (5)</button>
+                            <button onclick="filterCategory('G', '감사기구')" class="cat-tab-G px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm" data-cat="감사기구">감사기구 (4)</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="criteria-list-G" class="space-y-3">
+                            <!-- Criteria items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Versions Section -->
+            <section id="section-versions" class="section-content hidden">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-900">버전 관리</h1>
+                    <p class="text-gray-600 mt-1">K-ESG 기준 변경 이력을 관리합니다</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm">
+                    <div class="border-b px-6 py-4 flex items-center justify-between">
+                        <h3 class="font-bold text-gray-900">버전 이력</h3>
+                        <button onclick="createNewVersion()" class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition text-sm">
+                            새 버전 생성
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4" id="version-list">
+                            <!-- 동적으로 렌더링됨 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="section-settings" class="section-content hidden">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-900">설정</h1>
+                    <p class="text-gray-600 mt-1">K-ESG 기준 관리 시스템 설정</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Weighting Settings -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-bold text-gray-900 mb-4">영역별 가중치 설정</h3>
+                        <p class="text-sm text-gray-600 mb-6">E, S, G 각 영역의 점수 반영 비율을 설정합니다. 합계는 100%여야 합니다.</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="text-sm font-medium text-gray-700">환경 (E)</label>
+                                    <span class="text-sm font-bold text-green-600" id="weight-e-value">35%</span>
+                                </div>
+                                <input type="range" id="weight-e" min="0" max="100" value="35" class="w-full" oninput="updateWeight()">
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="text-sm font-medium text-gray-700">사회 (S)</label>
+                                    <span class="text-sm font-bold text-blue-600" id="weight-s-value">35%</span>
+                                </div>
+                                <input type="range" id="weight-s" min="0" max="100" value="35" class="w-full" oninput="updateWeight()">
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="text-sm font-medium text-gray-700">지배구조 (G)</label>
+                                    <span class="text-sm font-bold text-purple-600" id="weight-g-value">30%</span>
+                                </div>
+                                <input type="range" id="weight-g" min="0" max="100" value="30" class="w-full" oninput="updateWeight()">
+                            </div>
+                            <div class="pt-4 border-t">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium text-gray-900">합계</span>
+                                    <span class="font-bold" id="weight-total">100%</span>
+                                </div>
+                            </div>
+                            <button onclick="saveWeights()" class="w-full py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition">
+                                가중치 저장
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scoring Settings -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-bold text-gray-900 mb-4">점수 산정 방식</h3>
+                        <p class="text-sm text-gray-600 mb-6">ESG 점수 산정 방식을 설정합니다.</p>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-start gap-3 p-3 border border-emerald-200 bg-emerald-50 rounded-lg cursor-pointer">
+                                <input type="radio" name="scoring" value="weighted" checked class="mt-1">
+                                <div>
+                                    <div class="font-medium text-gray-900">가중 평균</div>
+                                    <div class="text-xs text-gray-500">각 항목별 가중치를 반영한 평균 점수</div>
+                                </div>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="scoring" value="simple" class="mt-1">
+                                <div>
+                                    <div class="font-medium text-gray-900">단순 평균</div>
+                                    <div class="text-xs text-gray-500">모든 항목에 동일한 가중치 적용</div>
+                                </div>
+                            </label>
+                            <label class="flex items-start gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="scoring" value="minimum" class="mt-1">
+                                <div>
+                                    <div class="font-medium text-gray-900">최소 점수 기준</div>
+                                    <div class="text-xs text-gray-500">가장 낮은 영역 점수를 기준으로 산정</div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <button class="w-full mt-6 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition">
+                            설정 저장
+                        </button>
+                    </div>
+
+                    <!-- Admin Account -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-bold text-gray-900 mb-4">관리자 계정</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">현재 비밀번호</label>
+                                <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="현재 비밀번호">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">새 비밀번호</label>
+                                <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="새 비밀번호">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">새 비밀번호 확인</label>
+                                <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="새 비밀번호 확인">
+                            </div>
+                            <button class="w-full py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition">
+                                비밀번호 변경
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Export/Import -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-bold text-gray-900 mb-4">데이터 관리</h3>
+                        <div class="space-y-3">
+                            <button onclick="exportCriteria()" class="w-full flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span>기준 데이터 내보내기 (JSON)</span>
+                            </button>
+                            <button class="w-full flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                <span>기준 데이터 가져오기</span>
+                            </button>
+                            <button class="w-full flex items-center justify-center gap-2 py-3 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                <span>모든 데이터 초기화</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Criteria Modal -->
+    <div id="criteria-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4">
+            <div class="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900" id="modal-title">평가 항목 추가</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <input type="hidden" id="criteria-id">
+                <input type="hidden" id="criteria-type">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">항목 코드 <span class="text-red-500">*</span></label>
+                    <input type="text" id="criteria-code" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="예: E-1-1">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">항목명 <span class="text-red-500">*</span></label>
+                    <input type="text" id="criteria-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="예: 환경경영 목표 수립">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">세부 카테고리 <span class="text-red-500">*</span></label>
+                    <select id="criteria-category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                        <option value="">선택하세요</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
+                    <textarea id="criteria-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="항목에 대한 상세 설명"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">가중치 (점)</label>
+                        <input type="number" id="criteria-weight" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="10" min="1" max="100">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">평가 방식</label>
+                        <select id="criteria-method" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                            <option value="quantitative">정량 평가</option>
+                            <option value="qualitative">정성 평가</option>
+                            <option value="both">복합 평가</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">평가 기준</label>
+                    <textarea id="criteria-standard" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500" placeholder="평가 기준 및 배점 기준을 입력하세요"></textarea>
+                </div>
+            </div>
+            <div class="sticky bottom-0 bg-gray-50 border-t px-6 py-4 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    취소
+                </button>
+                <button onclick="saveCriteria()" class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition">
+                    저장
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all z-50">
+        <span id="toast-message">저장되었습니다</span>
+    </div>
+
+    <script>
+        // Check auth
+        if (!sessionStorage.getItem('adminAuth')) {
+            window.location.href = '/admin-login';
+        }
+
+        // K-ESG Criteria Data
+        const criteriaData = {
+            E: [
+                { id: 'E1', code: 'E-1-1', name: '환경경영 목표 수립', category: '환경경영', weight: 10, method: 'qualitative', description: '환경경영 목표 및 추진계획 수립 여부', standard: '목표 수립: 5점, 추진계획 수립: 5점' },
+                { id: 'E2', code: 'E-1-2', name: '환경경영 추진체계', category: '환경경영', weight: 10, method: 'qualitative', description: '환경경영 담당조직 및 책임자 지정', standard: '전담조직 운영: 10점, 담당자 지정: 5점' },
+                { id: 'E3', code: 'E-1-3', name: '환경경영 성과관리', category: '환경경영', weight: 10, method: 'quantitative', description: '환경경영 성과지표 관리 여부', standard: 'KPI 설정 및 모니터링: 10점' },
+                { id: 'E4', code: 'E-2-1', name: '온실가스 배출량 관리', category: '환경성과', weight: 15, method: 'quantitative', description: 'Scope 1, 2 온실가스 배출량 측정 및 관리', standard: 'Scope1,2 측정: 10점, 감축목표: 5점' },
+                { id: 'E5', code: 'E-2-2', name: '에너지 사용량 관리', category: '환경성과', weight: 10, method: 'quantitative', description: '에너지 사용량 및 효율 관리', standard: '사용량 측정: 5점, 효율개선: 5점' },
+                { id: 'E6', code: 'E-2-3', name: '용수 사용량 관리', category: '환경성과', weight: 10, method: 'quantitative', description: '용수 사용량 및 재활용률 관리', standard: '사용량 관리: 5점, 재활용: 5점' },
+                { id: 'E7', code: 'E-2-4', name: '폐기물 관리', category: '환경성과', weight: 10, method: 'quantitative', description: '폐기물 발생량 및 재활용률', standard: '발생량 관리: 5점, 재활용률: 5점' },
+                { id: 'E8', code: 'E-2-5', name: '오염물질 관리', category: '환경성과', weight: 10, method: 'quantitative', description: '대기/수질 오염물질 배출 관리', standard: '배출량 측정: 5점, 저감활동: 5점' },
+                { id: 'E9', code: 'E-3-1', name: '친환경 제품 개발', category: '이해관계자', weight: 10, method: 'qualitative', description: '친환경 제품/서비스 개발 투자', standard: '개발 실적: 10점' },
+                { id: 'E10', code: 'E-3-2', name: '환경 정보 공개', category: '이해관계자', weight: 5, method: 'qualitative', description: '환경 관련 정보 공개 수준', standard: '공개 범위 및 정기성 평가' }
+            ],
+            S: [
+                { id: 'S1', code: 'S-1-1', name: '인권정책 수립', category: '근로자', weight: 10, method: 'qualitative', description: '인권정책 수립 및 실행', standard: '정책 수립: 5점, 실행: 5점' },
+                { id: 'S2', code: 'S-1-2', name: '산업안전 관리체계', category: '근로자', weight: 15, method: 'qualitative', description: '산업안전보건 관리체계 구축', standard: 'ISO 45001 인증: 15점, 자체체계: 10점' },
+                { id: 'S3', code: 'S-1-3', name: '산업재해율', category: '근로자', weight: 10, method: 'quantitative', description: '산업재해 발생률 관리', standard: '업종 평균 대비 재해율로 평가' },
+                { id: 'S4', code: 'S-1-4', name: '다양성 및 포용', category: '근로자', weight: 10, method: 'qualitative', description: '다양성 정책 및 차별 금지', standard: '정책 수립: 5점, 실적: 5점' },
+                { id: 'S5', code: 'S-1-5', name: '교육훈련', category: '근로자', weight: 5, method: 'quantitative', description: '직원 교육훈련 투자', standard: '1인당 교육시간/비용으로 평가' },
+                { id: 'S6', code: 'S-2-1', name: '협력사 ESG 평가', category: '협력사', weight: 10, method: 'qualitative', description: '협력사 ESG 평가 체계', standard: '평가체계 운영: 10점' },
+                { id: 'S7', code: 'S-2-2', name: '협력사 지원', category: '협력사', weight: 10, method: 'qualitative', description: '협력사 ESG 역량 강화 지원', standard: '지원 프로그램 운영: 10점' },
+                { id: 'S8', code: 'S-3-1', name: '지역사회 공헌', category: '지역사회', weight: 10, method: 'qualitative', description: '지역사회 공헌 활동', standard: '활동 실적 및 체계성 평가' },
+                { id: 'S9', code: 'S-4-1', name: '고객정보 보호', category: '소비자', weight: 10, method: 'qualitative', description: '고객 개인정보 보호 체계', standard: 'ISO 27001 인증: 10점, 자체체계: 5점' },
+                { id: 'S10', code: 'S-4-2', name: '제품안전', category: '소비자', weight: 10, method: 'qualitative', description: '제품/서비스 안전관리', standard: '안전인증 및 관리체계 평가' }
+            ],
+            G: [
+                { id: 'G1', code: 'G-1-1', name: '이사회 구성', category: '이사회', weight: 10, method: 'qualitative', description: '이사회 구성의 다양성', standard: '사외이사 비율, 다양성 평가' },
+                { id: 'G2', code: 'G-1-2', name: '이사회 운영', category: '이사회', weight: 10, method: 'quantitative', description: '이사회 활동 및 참석률', standard: '개최횟수, 참석률로 평가' },
+                { id: 'G3', code: 'G-1-3', name: 'ESG 위원회', category: '이사회', weight: 10, method: 'qualitative', description: 'ESG 관련 위원회 운영', standard: '위원회 설치: 10점, 정기보고: 5점' },
+                { id: 'G4', code: 'G-2-1', name: '주주권리 보호', category: '주주권리', weight: 10, method: 'qualitative', description: '주주권리 보호 정책', standard: '전자투표, 배당정책 등 평가' },
+                { id: 'G5', code: 'G-2-2', name: '정보 공개', category: '주주권리', weight: 10, method: 'qualitative', description: '경영정보 공개 수준', standard: '공시 적시성, 정확성 평가' },
+                { id: 'G6', code: 'G-3-1', name: '윤리강령', category: '윤리경영', weight: 10, method: 'qualitative', description: '윤리경영 체계 구축', standard: '윤리강령 수립: 5점, 교육: 5점' },
+                { id: 'G7', code: 'G-3-2', name: '부패방지', category: '윤리경영', weight: 10, method: 'qualitative', description: '부패방지 정책 및 실행', standard: '정책 수립 및 위반사례 관리' },
+                { id: 'G8', code: 'G-3-3', name: '내부고발제도', category: '윤리경영', weight: 10, method: 'qualitative', description: '내부고발자 보호제도', standard: '제도 운영: 5점, 보호실적: 5점' },
+                { id: 'G9', code: 'G-4-1', name: '감사기구 독립성', category: '감사기구', weight: 10, method: 'qualitative', description: '감사위원회/감사 독립성', standard: '구성 및 운영 독립성 평가' },
+                { id: 'G10', code: 'G-4-2', name: '내부감사', category: '감사기구', weight: 10, method: 'qualitative', description: '내부감사 체계 운영', standard: '감사체계 및 실적 평가' }
+            ]
+        };
+
+        const categoryOptions = {
+            E: ['환경경영', '환경성과', '이해관계자'],
+            S: ['근로자', '협력사', '지역사회', '소비자'],
+            G: ['이사회', '주주권리', '윤리경영', '감사기구']
+        };
+
+        // Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden'));
+            document.getElementById('section-' + sectionId).classList.remove('hidden');
+            
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`[href="#${sectionId}"]`).classList.add('active');
+
+            if (sectionId.startsWith('criteria-')) {
+                const type = sectionId.split('-')[1].toUpperCase();
+                renderCriteriaList(type);
+            }
+        }
+
+        // Render Criteria List
+        function renderCriteriaList(type, filter = 'all') {
+            console.log('renderCriteriaList 호출:', type, 'criteriaData:', criteriaData[type]?.length, '개');
+            
+            const container = document.getElementById('criteria-list-' + type);
+            if (!container) {
+                console.error('컨테이너를 찾을 수 없음:', 'criteria-list-' + type);
+                return;
+            }
+            
+            const items = filter === 'all' 
+                ? criteriaData[type] 
+                : criteriaData[type].filter(c => c.category === filter);
+            
+            console.log('렌더링할 항목 수:', items?.length);
+            
+            if (!items || items.length === 0) {
+                container.innerHTML = '<div class="text-center text-gray-500 py-8">추출된 항목이 없습니다.</div>';
+                return;
+            }
+            
+            // Tailwind 동적 클래스 문제 해결을 위해 직접 색상 지정
+            const colors = {
+                E: { bg: 'bg-green-100', text: 'text-green-600' },
+                S: { bg: 'bg-blue-100', text: 'text-blue-600' },
+                G: { bg: 'bg-purple-100', text: 'text-purple-600' }
+            };
+            const color = colors[type];
+            
+            container.innerHTML = items.map(item => `
+                <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                    <div class="w-12 h-12 ${color.bg} rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span class="${color.text} font-bold text-sm">${item.code || item.id}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-medium text-gray-900">${item.name}</div>
+                        <div class="text-sm text-gray-500">${item.category || '미분류'} • 가중치: ${item.weight || 0}점 • ${item.method === 'quantitative' ? '정량' : item.method === 'qualitative' ? '정성' : '복합'}</div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="editCriteria('${type}', '${item.id}')" class="p-2 text-gray-400 hover:text-emerald-600 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        </button>
+                        <button onclick="deleteCriteria('${type}', '${item.id}')" class="p-2 text-gray-400 hover:text-red-600 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            console.log('렌더링 완료, container innerHTML 길이:', container.innerHTML.length);
+        }
+
+        // Filter Category
+        function filterCategory(type, category) {
+            document.querySelectorAll('.cat-tab-' + type).forEach(tab => {
+                tab.classList.remove('bg-green-100', 'text-green-700', 'bg-blue-100', 'text-blue-700', 'bg-purple-100', 'text-purple-700', 'font-medium');
+                tab.classList.add('text-gray-600');
+            });
+            
+            const activeTab = document.querySelector(`.cat-tab-${type}[data-cat="${category}"]`);
+            const colorClass = type === 'E' ? 'green' : type === 'S' ? 'blue' : 'purple';
+            activeTab.classList.remove('text-gray-600');
+            activeTab.classList.add(`bg-${colorClass}-100`, `text-${colorClass}-700`, 'font-medium');
+            
+            renderCriteriaList(type, category);
+        }
+
+        // Modal Functions
+        function openAddModal(type) {
+            document.getElementById('modal-title').textContent = `${type === 'E' ? '환경' : type === 'S' ? '사회' : '지배구조'} 평가 항목 추가`;
+            document.getElementById('criteria-id').value = '';
+            document.getElementById('criteria-type').value = type;
+            document.getElementById('criteria-code').value = '';
+            document.getElementById('criteria-name').value = '';
+            document.getElementById('criteria-description').value = '';
+            document.getElementById('criteria-weight').value = '10';
+            document.getElementById('criteria-method').value = 'qualitative';
+            document.getElementById('criteria-standard').value = '';
+            
+            const categorySelect = document.getElementById('criteria-category');
+            categorySelect.innerHTML = '<option value="">선택하세요</option>' + 
+                categoryOptions[type].map(c => `<option value="${c}">${c}</option>`).join('');
+            
+            document.getElementById('criteria-modal').classList.remove('hidden');
+            document.getElementById('criteria-modal').classList.add('flex');
+        }
+
+        function editCriteria(type, id) {
+            const item = criteriaData[type].find(c => c.id === id);
+            if (!item) return;
+            
+            document.getElementById('modal-title').textContent = `${type === 'E' ? '환경' : type === 'S' ? '사회' : '지배구조'} 평가 항목 수정`;
+            document.getElementById('criteria-id').value = id;
+            document.getElementById('criteria-type').value = type;
+            document.getElementById('criteria-code').value = item.code;
+            document.getElementById('criteria-name').value = item.name;
+            document.getElementById('criteria-description').value = item.description || '';
+            document.getElementById('criteria-weight').value = item.weight;
+            document.getElementById('criteria-method').value = item.method;
+            document.getElementById('criteria-standard').value = item.standard || '';
+            
+            const categorySelect = document.getElementById('criteria-category');
+            categorySelect.innerHTML = '<option value="">선택하세요</option>' + 
+                categoryOptions[type].map(c => `<option value="${c}" ${c === item.category ? 'selected' : ''}>${c}</option>`).join('');
+            
+            document.getElementById('criteria-modal').classList.remove('hidden');
+            document.getElementById('criteria-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('criteria-modal').classList.add('hidden');
+            document.getElementById('criteria-modal').classList.remove('flex');
+        }
+
+        function saveCriteria() {
+            const type = document.getElementById('criteria-type').value;
+            const id = document.getElementById('criteria-id').value;
+            
+            const item = {
+                id: id || type + (criteriaData[type].length + 1),
+                code: document.getElementById('criteria-code').value,
+                name: document.getElementById('criteria-name').value,
+                category: document.getElementById('criteria-category').value,
+                weight: parseInt(document.getElementById('criteria-weight').value) || 10,
+                method: document.getElementById('criteria-method').value,
+                description: document.getElementById('criteria-description').value,
+                standard: document.getElementById('criteria-standard').value
+            };
+
+            if (!item.code || !item.name || !item.category) {
+                alert('필수 항목을 모두 입력해주세요.');
+                return;
+            }
+
+            if (id) {
+                const index = criteriaData[type].findIndex(c => c.id === id);
+                criteriaData[type][index] = item;
+            } else {
+                criteriaData[type].push(item);
+            }
+
+            closeModal();
+            renderCriteriaList(type);
+            updateStats();
+            showToast(id ? '항목이 수정되었습니다.' : '항목이 추가되었습니다.');
+        }
+
+        function deleteCriteria(type, id) {
+            if (!confirm('이 항목을 삭제하시겠습니까?')) return;
+            
+            const index = criteriaData[type].findIndex(c => c.id === id);
+            criteriaData[type].splice(index, 1);
+            
+            renderCriteriaList(type);
+            updateStats();
+            showToast('항목이 삭제되었습니다.');
+        }
+
+        // Update Stats
+        function updateStats() {
+            const total = criteriaData.E.length + criteriaData.S.length + criteriaData.G.length;
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-e').textContent = criteriaData.E.length;
+            document.getElementById('stat-s').textContent = criteriaData.S.length;
+            document.getElementById('stat-g').textContent = criteriaData.G.length;
+            
+            // 대시보드 현재 버전 정보 업데이트
+            const currentVersion = versionHistory.find(v => v.isCurrent);
+            if (currentVersion) {
+                const nameEl = document.getElementById('current-version-name');
+                const dateEl = document.getElementById('current-version-date');
+                const itemsEl = document.getElementById('current-version-items');
+                const modifiedEl = document.getElementById('current-version-modified');
+                
+                if (nameEl) nameEl.textContent = currentVersion.name;
+                if (dateEl) dateEl.textContent = currentVersion.description || '';
+                if (itemsEl) itemsEl.textContent = total + '개';
+                if (modifiedEl) modifiedEl.textContent = currentVersion.date;
+            }
+        }
+
+        // PDF Upload Functions
+        const dropZone = document.getElementById('drop-zone');
+        let selectedFile = null;
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                handleFile(file);
+            } else {
+                alert('PDF 파일만 업로드 가능합니다.');
+            }
+        });
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) handleFile(file);
+        }
+
+        function handleFile(file) {
+            selectedFile = file;
+            document.getElementById('file-name').textContent = file.name;
+            document.getElementById('file-size').textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+            document.getElementById('selected-file').classList.remove('hidden');
+        }
+
+        function clearFile() {
+            selectedFile = null;
+            document.getElementById('selected-file').classList.add('hidden');
+            document.getElementById('pdf-input').value = '';
+        }
+
+        // PDF 업로드 및 AI 파싱
+        // 진행 상태 UI 함수들
+        function showProgress() {
+            document.getElementById('progress-container').classList.remove('hidden');
+            document.getElementById('upload-btn').disabled = true;
+            document.getElementById('upload-btn').classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        
+        function hideProgress() {
+            document.getElementById('progress-container').classList.add('hidden');
+            document.getElementById('upload-btn').disabled = false;
+            document.getElementById('upload-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        function updateProgress(percent, status, detail = '') {
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('progress-percent').textContent = percent + '%';
+            document.getElementById('progress-status').textContent = status;
+            if (detail) {
+                document.getElementById('progress-detail').textContent = detail;
+            }
+        }
+        
+        function completeStep(stepId) {
+            const step = document.getElementById(stepId);
+            step.classList.remove('text-gray-400');
+            step.classList.add('text-emerald-600');
+            step.querySelector('div').classList.remove('border-gray-300');
+            step.querySelector('div').classList.add('border-emerald-500', 'bg-emerald-500', 'text-white');
+            step.querySelector('svg').classList.remove('hidden');
+        }
+        
+        function activeStep(stepId) {
+            const step = document.getElementById(stepId);
+            step.classList.remove('text-gray-400');
+            step.classList.add('text-blue-600');
+            step.querySelector('div').classList.remove('border-gray-300');
+            step.querySelector('div').classList.add('border-blue-500');
+        }
+        
+        function updateChunkProgress(current, total) {
+            document.getElementById('chunk-progress').textContent = `${current}/${total}`;
+        }
+        
+        function updateETA(seconds) {
+            if (seconds > 60) {
+                document.getElementById('eta-time').textContent = `약 ${Math.ceil(seconds / 60)}분`;
+            } else {
+                document.getElementById('eta-time').textContent = `약 ${Math.ceil(seconds)}초`;
+            }
+        }
+
+        // PDF 업로드 및 AI 파싱 (SSE 방식)
+        async function uploadPDF() {
+            if (!selectedFile) {
+                alert('PDF 파일을 선택해주세요.');
+                return;
+            }
+            
+            const versionName = document.getElementById('version-name').value;
+            if (!versionName) {
+                alert('버전명을 입력해주세요.');
+                return;
+            }
+
+            const notes = document.getElementById('version-notes').value;
+            
+            // 진행 상태 UI 초기화 및 표시
+            showProgress();
+            updateProgress(0, 'PDF 업로드 준비 중...', '파일을 서버로 전송합니다.');
+            activeStep('step-upload');
+
+            try {
+                // 1단계: PDF 업로드 및 텍스트 추출
+                updateProgress(5, 'PDF 업로드 중...', '파일을 서버로 전송하고 있습니다.');
+                
+                const formData = new FormData();
+                formData.append('pdf', selectedFile);
+                formData.append('versionName', versionName);
+                formData.append('notes', notes);
+
+                const uploadResponse = await fetch('/api/admin/pdf/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const uploadText = await uploadResponse.text();
+                let uploadResult;
+                try {
+                    uploadResult = JSON.parse(uploadText);
+                } catch (e) {
+                    throw new Error('PDF 업로드 응답 파싱 실패');
+                }
+
+                if (!uploadResult.success && uploadResult.error) {
+                    throw new Error(uploadResult.error);
+                }
+
+                updateProgress(15, '텍스트 추출 완료', `${uploadResult.fullTextLength?.toLocaleString() || '?'}자 추출됨`);
+                completeStep('step-upload');
+                
+                // 업로드 이력 갱신
+                loadUploadHistory();
+
+                // 2단계: AI로 K-ESG 기준 추출 (SSE 방식)
+                activeStep('step-analyze');
+                updateProgress(20, 'AI 분석 시작...', 'Claude API에 연결 중...');
+                
+                // 청크 수 계산 (40,000자 단위)
+                const textLength = uploadResult.fullTextLength || uploadResult.fullText?.length || 0;
+                const totalChunks = Math.ceil(textLength / 40000);
+                updateChunkProgress(0, totalChunks);
+                updateETA(totalChunks * 15); // 청크당 약 15초 예상 (5초 딜레이 + API 처리)
+                
+                // AI 파싱 실행
+                const parseResult = await parseWithAIFetch(
+                    uploadResult.fullText || uploadResult.preview,
+                    versionName,
+                    totalChunks,
+                    (current, total, status) => {
+                        const percent = 20 + Math.floor((current / total) * 70);
+                        updateProgress(percent, `AI 분석 중...`, status);
+                        updateChunkProgress(current, total);
+                        updateETA((total - current) * 15);
+                    }
+                );
+
+                if (parseResult.success && parseResult.criteria) {
+                    completeStep('step-analyze');
+                    updateProgress(95, '기준 적용 중...', '추출된 항목을 저장하고 있습니다.');
+                    
+                    // 추출된 기준으로 데이터 업데이트
+                    if (parseResult.criteria.E && Array.isArray(parseResult.criteria.E)) {
+                        criteriaData.E = parseResult.criteria.E;
+                    }
+                    if (parseResult.criteria.S && Array.isArray(parseResult.criteria.S)) {
+                        criteriaData.S = parseResult.criteria.S;
+                    }
+                    if (parseResult.criteria.G && Array.isArray(parseResult.criteria.G)) {
+                        criteriaData.G = parseResult.criteria.G;
+                    }
+                    
+                    // 새 버전 자동 생성
+                    versionHistory.forEach(v => v.isCurrent = false);
+                    const newVersion = {
+                        id: 'v' + Date.now(),
+                        version: (versionHistory.length + 1) + '.0',
+                        name: versionName,
+                        description: notes || 'PDF에서 자동 추출',
+                        date: new Date().toLocaleString('ko-KR'),
+                        author: 'admin',
+                        itemCount: (parseResult.stats?.total) || (criteriaData.E.length + criteriaData.S.length + criteriaData.G.length),
+                        isCurrent: true,
+                        criteria: JSON.parse(JSON.stringify(criteriaData))
+                    };
+                    versionHistory.unshift(newVersion);
+                    
+                    // UI 업데이트
+                    updateStats();
+                    renderCriteriaList('E', 'all');
+                    renderCriteriaList('S', 'all');
+                    renderCriteriaList('G', 'all');
+                    renderVersionList();
+                    loadUploadHistory();
+                    
+                    completeStep('step-complete');
+                    updateProgress(100, '완료!', `총 ${parseResult.stats?.total || 0}개 항목 추출됨`);
+                    
+                    const simMsg = parseResult.simulated ? ' (시뮬레이션)' : '';
+                    showToast(`기준 추출 완료!${simMsg} E:${parseResult.stats?.E || 0}, S:${parseResult.stats?.S || 0}, G:${parseResult.stats?.G || 0}`);
+                    
+                    // 2초 후 진행바 숨기기
+                    setTimeout(() => {
+                        hideProgress();
+                    }, 2000);
+                } else {
+                    updateProgress(100, '분석 완료 (검토 필요)', '일부 항목을 수동으로 확인해주세요.');
+                    showToast('AI 응답을 받았습니다. 수동 검토가 필요합니다.');
+                    loadUploadHistory();
+                    setTimeout(() => {
+                        hideProgress();
+                    }, 3000);
+                }
+
+                clearFile();
+                document.getElementById('version-name').value = '';
+                document.getElementById('version-notes').value = '';
+
+            } catch (error) {
+                console.error('업로드 오류:', error);
+                updateProgress(0, '오류 발생', error.message);
+                alert('오류: ' + error.message);
+                setTimeout(() => {
+                    hideProgress();
+                }, 3000);
+            }
+        }
+        
+        // SSE 방식 AI 파싱 (폴백: 일반 fetch)
+        // 일반 fetch 방식 AI 파싱
+        async function parseWithAIFetch(pdfText, versionName, onProgress, totalChunks) {
+            // 진행 상태 시뮬레이션 (5초 딜레이 + API 처리 = 약 15초/청크)
+            let fakeProgress = 0;
+            const progressInterval = setInterval(() => {
+                if (fakeProgress < totalChunks) {
+                    fakeProgress++;
+                    onProgress(fakeProgress, totalChunks, `청크 ${fakeProgress}/${totalChunks} 분석 중...`);
+                }
+            }, 15000); // 15초마다 업데이트
+            
+            try {
+                const response = await fetch('/api/admin/pdf/parse-with-ai', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pdfText, versionName })
+                });
+                
+                clearInterval(progressInterval);
+                
+                const text = await response.text();
+                return JSON.parse(text);
+            } catch (error) {
+                clearInterval(progressInterval);
+                throw error;
+            }
+        }
+
+        // 업로드 이력 로드 및 표시
+        async function loadUploadHistory() {
+            try {
+                const response = await fetch('/api/admin/uploads');
+                const data = await response.json();
+                
+                const historyContainer = document.getElementById('upload-history');
+                
+                if (!data.uploads || data.uploads.length === 0) {
+                    historyContainer.innerHTML = `
+                        <div class="text-center py-4 text-gray-500 text-sm">
+                            업로드된 파일이 없습니다.
+                        </div>
+                    `;
+                    return;
+                }
+                
+                historyContainer.innerHTML = data.uploads.map((upload, index) => {
+                    const isActive = index === 0;
+                    const date = new Date(upload.uploadDate).toLocaleDateString('ko-KR');
+                    const statusText = upload.status === 'parsed' ? `${upload.criteriaCount}개 항목 추출됨` : '업로드됨';
+                    const statusColor = upload.status === 'parsed' ? 'emerald' : 'yellow';
+                    
+                    return `
+                        <div class="flex items-center gap-3 p-3 ${isActive ? 'bg-emerald-50 border-emerald-200' : 'border-gray-200'} border rounded-lg">
+                            <div class="w-10 h-10 ${isActive ? 'bg-red-100' : 'bg-gray-100'} rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 ${isActive ? 'text-red-600' : 'text-gray-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-medium ${isActive ? 'text-gray-900' : 'text-gray-700'} truncate">${upload.fileName}</div>
+                                <div class="text-xs text-gray-500">${date} • ${upload.versionName} • ${statusText}</div>
+                            </div>
+                            ${isActive ? 
+                                `<span class="px-2 py-1 bg-emerald-500 text-white rounded text-xs">활성</span>` : 
+                                `<button onclick="restoreUpload('${upload.id}')" class="text-sm text-emerald-600 hover:text-emerald-700">복원</button>`
+                            }
+                        </div>
+                    `;
+                }).join('');
+                
+            } catch (error) {
+                console.error('업로드 이력 로드 오류:', error);
+            }
+        }
+
+        // 이전 버전 복원
+        function restoreUpload(uploadId) {
+            showToast('이 기능은 곧 지원될 예정입니다.');
+        }
+
+        // AI 파싱만 실행 (이미 업로드된 텍스트로)
+        async function parseWithAI(pdfText) {
+            const versionName = document.getElementById('version-name').value || 'K-ESG 가이드라인';
+            
+            try {
+                showToast('AI가 K-ESG 기준을 분석 중...');
+                
+                const response = await fetch('/api/admin/pdf/parse-with-ai', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pdfText, versionName })
+                });
+
+                const result = await response.json();
+                
+                if (result.criteria) {
+                    criteriaData.E = result.criteria.E || criteriaData.E;
+                    criteriaData.S = result.criteria.S || criteriaData.S;
+                    criteriaData.G = result.criteria.G || criteriaData.G;
+                    updateStats();
+                    showToast('AI 파싱 완료!');
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('AI 파싱 오류:', error);
+                throw error;
+            }
+        }
+
+        // Weight Settings
+        function updateWeight() {
+            const e = parseInt(document.getElementById('weight-e').value);
+            const s = parseInt(document.getElementById('weight-s').value);
+            const g = parseInt(document.getElementById('weight-g').value);
+            
+            document.getElementById('weight-e-value').textContent = e + '%';
+            document.getElementById('weight-s-value').textContent = s + '%';
+            document.getElementById('weight-g-value').textContent = g + '%';
+            
+            const total = e + s + g;
+            document.getElementById('weight-total').textContent = total + '%';
+            document.getElementById('weight-total').className = total === 100 ? 'font-bold text-emerald-600' : 'font-bold text-red-600';
+        }
+
+        function saveWeights() {
+            const total = parseInt(document.getElementById('weight-e').value) + 
+                         parseInt(document.getElementById('weight-s').value) + 
+                         parseInt(document.getElementById('weight-g').value);
+            
+            if (total !== 100) {
+                alert('가중치 합계가 100%가 되어야 합니다.');
+                return;
+            }
+            showToast('가중치가 저장되었습니다.');
+        }
+
+        // Export
+        function exportCriteria() {
+            const data = {
+                version: 'K-ESG 가이드라인 v1.0',
+                exportDate: new Date().toISOString(),
+                criteria: criteriaData
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'k-esg-criteria-' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('기준 데이터가 다운로드되었습니다.');
+        }
+
+        // Version
+        let versionHistory = [
+            {
+                id: 'v1.0',
+                version: '1.0',
+                name: 'K-ESG 가이드라인 v1.0',
+                description: '산업통상자원부 K-ESG 가이드라인 초기 버전 적용',
+                date: '2024-12-10 14:30',
+                author: 'admin',
+                itemCount: 61,
+                isCurrent: true,
+                criteria: null  // 나중에 저장
+            }
+        ];
+
+        function createNewVersion() {
+            const versionName = prompt('새 버전명을 입력하세요:', `K-ESG 가이드라인 v${(versionHistory.length + 1)}.0`);
+            if (!versionName) return;
+
+            const description = prompt('버전 설명을 입력하세요:', '');
+            
+            // 현재 버전 비활성화
+            versionHistory.forEach(v => v.isCurrent = false);
+            
+            // 새 버전 추가
+            const newVersion = {
+                id: 'v' + (versionHistory.length + 1) + '.0',
+                version: (versionHistory.length + 1) + '.0',
+                name: versionName,
+                description: description || '새 버전',
+                date: new Date().toLocaleString('ko-KR'),
+                author: 'admin',
+                itemCount: criteriaData.E.length + criteriaData.S.length + criteriaData.G.length,
+                isCurrent: true,
+                criteria: JSON.parse(JSON.stringify(criteriaData))  // 현재 기준 복사
+            };
+            
+            versionHistory.unshift(newVersion);
+            renderVersionList();
+            showToast(`새 버전 "${versionName}"이 생성되었습니다.`);
+        }
+
+        function restoreVersion(versionId) {
+            const version = versionHistory.find(v => v.id === versionId);
+            if (!version) return;
+            
+            if (!confirm(`"${version.name}" 버전으로 복원하시겠습니까?`)) return;
+            
+            if (version.criteria) {
+                criteriaData.E = version.criteria.E || [];
+                criteriaData.S = version.criteria.S || [];
+                criteriaData.G = version.criteria.G || [];
+            }
+            
+            // 현재 버전 변경
+            versionHistory.forEach(v => v.isCurrent = false);
+            version.isCurrent = true;
+            
+            updateStats();
+            renderCriteriaList('E', 'all');
+            renderCriteriaList('S', 'all');
+            renderCriteriaList('G', 'all');
+            renderVersionList();
+            showToast(`"${version.name}" 버전으로 복원되었습니다.`);
+        }
+
+        function renderVersionList() {
+            const container = document.getElementById('version-list');
+            if (!container) return;
+            
+            container.innerHTML = versionHistory.map(v => `
+                <div class="border ${v.isCurrent ? 'border-emerald-200 bg-emerald-50' : 'border-gray-200'} rounded-xl p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 ${v.isCurrent ? 'bg-emerald-500 text-white' : 'bg-gray-200 text-gray-500'} rounded-lg flex items-center justify-center font-bold">
+                                ${v.version}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-bold ${v.isCurrent ? 'text-gray-900' : 'text-gray-700'}">${v.name}</h4>
+                                    ${v.isCurrent ? '<span class="px-2 py-0.5 bg-emerald-500 text-white rounded text-xs">현재 버전</span>' : '<span class="px-2 py-0.5 bg-gray-200 text-gray-600 rounded text-xs">보관됨</span>'}
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">${v.description}</p>
+                                <div class="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                                    <span>${v.date}</span>
+                                    <span>${v.author}</span>
+                                    <span>${v.itemCount}개 항목</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            ${!v.isCurrent ? `<button onclick="restoreVersion('${v.id}')" class="px-3 py-1 text-sm text-emerald-600 hover:bg-emerald-100 rounded">복원</button>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Logout
+        function logout() {
+            sessionStorage.removeItem('adminAuth');
+            sessionStorage.removeItem('adminId');
+            window.location.href = '/admin-login';
+        }
+
+        // Initialize
+        updateStats();
+        loadUploadHistory();
+        renderCriteriaList('E', 'all');
+        renderCriteriaList('S', 'all');
+        renderCriteriaList('G', 'all');
+        renderVersionList();
+    </script>
+</body>
+</html>
